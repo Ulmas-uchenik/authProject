@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_nav_graph"
+    app:startDestination="@id/enterPhoneFragment2">
+
+    <fragment
+        android:id="@+id/enterPhoneFragment2"
+        android:name="com.example.authproject.EnterPhoneFragment"
+        android:label="fragment_enter_phone"
+        tools:layout="@layout/fragment_enter_phone" >
+        <action
+            android:id="@+id/action_enterPhoneFragment2_to_enterCodeFragment"
+            app:destination="@id/enterCodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterCodeFragment"
+        android:name="com.example.authproject.EnterCodeFragment"
+        android:label="fragment_enter_code"
+        tools:layout="@layout/fragment_enter_code" />
+</navigation>
