@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".EnterCodeFragment">
+    tools:context=".auth.EnterCodeFragment">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -17,10 +17,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text"
+            android:id="@+id/edit_text_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Введите код который вы получили"
+            android:hint="@string/put_auth_code"
             android:inputType="number"
             android:maxLength="10" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Проверить"
+        android:text="@string/check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_edit_text" />

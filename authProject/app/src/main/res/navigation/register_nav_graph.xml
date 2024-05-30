@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/enterPhoneFragment2"
-        android:name="com.example.authproject.EnterPhoneFragment"
+        android:name="com.example.authproject.auth.EnterPhoneFragment"
         android:label="fragment_enter_phone"
         tools:layout="@layout/fragment_enter_phone" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterCodeFragment"
-        android:name="com.example.authproject.EnterCodeFragment"
+        android:name="com.example.authproject.auth.EnterCodeFragment"
         android:label="fragment_enter_code"
         tools:layout="@layout/fragment_enter_code" />
 </navigation>
