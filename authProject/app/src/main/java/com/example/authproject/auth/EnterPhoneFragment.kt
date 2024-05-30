@@ -45,7 +45,7 @@ class EnterPhoneFragment : Fragment() {
             if (tempPhoneNumber.isNullOrEmpty() || tempPhoneNumber.length != 10) {
                 Toast.makeText(context, "Введите номер тефона верно пожалуйста", Toast.LENGTH_SHORT).show()
             } else {
-                val phoneNumber = "+${tempPhoneNumber}"
+                val phoneNumber = "+7${tempPhoneNumber}"
                 Toast.makeText(context, "ваш номер телефона :$phoneNumber", Toast.LENGTH_SHORT).show()
                 Log.d(AuthViewModel.AUTH_TAG, "Создание phoneProvider")
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
