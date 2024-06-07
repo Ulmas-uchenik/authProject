@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="navigation_home">Главная</string>
+    <string name="navigation_appointment">Запись</string>
+    <string name="navigation_med_card">Медкарта</string>
+    <string name="navigation_menu">Меню</string>
+</resources>

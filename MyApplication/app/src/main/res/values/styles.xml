@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BottomNavigation">
+        <item name="android:background">@color/white</item>
+        <item name="itemIconTint">@color/purple_200</item>
+        <item name="itemTextColor">@color/purple_500</item>
+        <item name="tabIconTint">@color/black</item>
+    </style>
+</resources>
