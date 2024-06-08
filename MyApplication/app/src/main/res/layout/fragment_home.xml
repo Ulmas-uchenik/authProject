@@ -1,15 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.menu.HomeFragment">
+    android:padding="16dp"
+    tools:context=".ui.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/stoma_image_view"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/stoma"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_center_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Home" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".60" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bottom_barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="chat_card, doctors_and_services_card, bonus_card"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/doctors_and_services_card"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_barrier"
+        android:minHeight="120dp"
+        android:background="@drawable/shape"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vertical_center_line">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="50dp"
+            android:layout_height="@dimen/image_height"
+            android:src="@drawable/doctor_man"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/woman_doctor_image_view"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/image_height"
+            android:src="@drawable/doctor_woman"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            
+            />
+
+        <TextView
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/doctor_and_services"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+             />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bonus_card"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_barrier"
+        android:minHeight="120dp"
+        android:background="@drawable/shape"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/margin_between_card"
+        app:layout_constraintStart_toEndOf="@id/doctors_and_services_card"
+        app:layout_constraintTop_toBottomOf="@id/vertical_center_line">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/love_box_image_view"
+            android:layout_width="60dp"
+            android:layout_height="@dimen/image_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/love_box"
+            />
+
+        <TextView
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/bonus_program"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_card"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:minHeight="120dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="@dimen/margin_between_card"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@id/doctors_and_services_card"
+        app:layout_constraintTop_toBottomOf="@id/vertical_center_line">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/chat_image_view"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="@dimen/image_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/chat"
+            />
+
+        <TextView
+            android:id="@+id/chat_text_view"
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/chat_with_operator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="appointment_card, logbook_card"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logbook_card"
+        android:layout_width="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_height="0dp"
+        android:minHeight="120dp"
+        android:layout_marginEnd="@dimen/margin_between_card"
+        android:background="@drawable/shape"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="@id/doctors_and_services_card"
+        app:layout_constraintEnd_toEndOf="@id/bonus_card"
+        app:layout_constraintBottom_toTopOf="@id/vertical_center_line"
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logbook_image_view"
+            android:layout_width="100dp"
+            android:rotationX="30"
+            android:rotationY="-30"
+            android:rotation="15"
+            android:layout_height="@dimen/image_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/logbook"
+            />
+
+        <TextView
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="Журнал Записей"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/appointment_card"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:minHeight="120dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="@dimen/margin_between_card"
+        android:background="@drawable/shape"
+        app:layout_constraintEnd_toStartOf="@id/logbook_card"
+        app:layout_constraintBottom_toTopOf="@id/vertical_center_line">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appointment_image_view"
+            android:layout_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="@dimen/image_height"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/online_doctor"
+            />
+
+        <TextView
+            style="@style/CardTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/chat_with_operator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

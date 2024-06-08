@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BottomNavigation">
         <item name="android:background">@color/white</item>
         <item name="itemIconTint">@color/purple_200</item>
         <item name="itemTextColor">@color/purple_500</item>
         <item name="tabIconTint">@color/black</item>
+    </style>
+
+    <style name="CardTextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Corner">
+        <item name="cornerSize">20sp</item>
     </style>
 </resources>

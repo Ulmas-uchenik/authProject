@@ -4,4 +4,7 @@
     <string name="navigation_appointment">Запись</string>
     <string name="navigation_med_card">Медкарта</string>
     <string name="navigation_menu">Меню</string>
+    <string name="doctor_and_services">Врачи и услуги</string>
+    <string name="bonus_program">Бонусная программа</string>
+    <string name="chat_with_operator">Чат с оператором<!-- ухеал в горы теперь не понятно чтмы будем делать когда у нас вот так вот вырастут карточки и как для них нужно едлать расширене --></string>
 </resources>
