@@ -4,23 +4,46 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.google.android.material.snackbar.Snackbar
 
-class HomeFragment: Fragment() {
-        private var _binding: FragmentHomeBinding? = null
-            private val binding get() = _binding!!
-            override fun onCreateView(
-                inflater: LayoutInflater,
-                container: ViewGroup?,
-                savedInstanceState: Bundle?
-            ): View {
-                _binding = FragmentHomeBinding.inflate(inflater, container, false)
-                return binding.root
-            }
+class HomeFragment : Fragment() {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-            override fun onDestroy() {
-                super.onDestroy()
-                _binding = null
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.appointmentCard.setOnClickListener {
+            Snackbar.make(it, "сделать переход на запись врача", Snackbar.LENGTH_LONG)
+                .show()
+        }
+
+        binding.logbookCard.setOnClickListener {
+            Snackbar.make(it, "сделать переход на журнал записей", Snackbar.LENGTH_LONG)
+            .show()
+        }
+
+        binding.doctorsAndServicesCard.setOnClickListener {
+            Snackbar.make(it, "сделать переход на докторов и услуг", Snackbar.LENGTH_LONG)
+                .show()
+        }
+
+        binding.personalRoom.setOnClickListener {
+            Snackbar.make(it, "сделать переход на личный кабинет", Snackbar.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

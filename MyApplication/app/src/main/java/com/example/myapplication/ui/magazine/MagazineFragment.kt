@@ -1,20 +1,20 @@
-package com.example.myapplication.ui.medicCard
+package com.example.myapplication.ui.magazine
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.myapplication.databinding.FragmentMedicCardBinding
+import com.example.myapplication.databinding.FragmentMagazineBinding
 
-class MedicCardFragment: Fragment() {
-        private var _binding: FragmentMedicCardBinding? = null
+class MagazineFragment: Fragment() {
+        private var _binding: FragmentMagazineBinding? = null
             private val binding get() = _binding!!
             override fun onCreateView(
                 inflater: LayoutInflater,
                 container: ViewGroup?,
                 savedInstanceState: Bundle?
             ): View {
-                _binding = FragmentMedicCardBinding.inflate(inflater, container, false)
+                _binding = FragmentMagazineBinding.inflate(inflater, container, false)
                 return binding.root
             }
 

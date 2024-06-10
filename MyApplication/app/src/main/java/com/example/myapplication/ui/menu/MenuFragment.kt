@@ -5,19 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMenuBinding
+import com.google.android.material.snackbar.Snackbar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
@@ -28,6 +20,28 @@ class MenuFragment : Fragment() {
     ): View {
         _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        with(binding){
+            navigationView.setNavigationItemSelectedListener {
+                when(it.itemId) {
+                    R.id.make_an_appointment -> snack(it.title)
+                    R.id.doctors_and_services -> snack(it.title)
+                    R.id.notifications -> snack(it.title)
+                    R.id.magazine_appointments -> snack(it.title)
+                    R.id.personal_room -> snack(it.title)
+                    R.id.settings -> snack(it.title)
+                }
+                true
+            }
+        }
+    }
+
+    private fun snack(text: CharSequence?){
+        Snackbar.make(binding.navigationView, text.toString(), Snackbar.LENGTH_LONG)
+            .show()
     }
 
     override fun onDestroy() {

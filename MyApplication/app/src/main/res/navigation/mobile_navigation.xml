@@ -16,9 +16,9 @@
         tools:layout="@layout/fragment_appointment"
         />
     <fragment
-        android:id="@+id/navigation_medic_card"
-        android:name="com.example.myapplication.ui.medicCard.MedicCardFragment"
-        tools:layout="@layout/fragment_medic_card"
+        android:id="@+id/magazine_card"
+        android:name="com.example.myapplication.ui.magazine.MagazineFragment"
+        tools:layout="@layout/fragment_magazine"
         />
 
     <fragment

@@ -12,9 +12,9 @@
         android:title="@string/navigation_appointment" />
 
     <item
-        android:id="@+id/navigation_medic_card"
-        android:icon="@drawable/monitor_heart_24px"
-        android:title="@string/navigation_med_card" />
+        android:id="@+id/magazine_card"
+        android:icon="@drawable/journal"
+        android:title="@string/navigation_magazine" />
 
     <item
         android:id="@+id/navigation_menu"

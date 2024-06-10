@@ -2,9 +2,11 @@
     <string name="app_name">My Application</string>
     <string name="navigation_home">Главная</string>
     <string name="navigation_appointment">Запись</string>
-    <string name="navigation_med_card">Медкарта</string>
+    <string name="navigation_magazine">Журнал</string>
     <string name="navigation_menu">Меню</string>
     <string name="doctor_and_services">Врачи и услуги</string>
-    <string name="bonus_program">Бонусная программа</string>
-    <string name="chat_with_operator">Чат с оператором<!-- ухеал в горы теперь не понятно чтмы будем делать когда у нас вот так вот вырастут карточки и как для них нужно едлать расширене --></string>
+    <string name="personal_room">Личный кабинет</string>
+    <string name="chat_with_operator">Чат с оператором</string>
+    <string name="make_an_appointment">Записаться на прием</string>
+    <string name="logbook_write">Журнал Записей</string>
 </resources>
