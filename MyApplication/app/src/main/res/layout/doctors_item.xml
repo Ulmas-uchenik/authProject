@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="@dimen/margin_medium"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/doctor_text_view"
+        android:textSize="@dimen/text_little"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Терапевт"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/next_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/baseline_arrow_back_24"
+        app:layout_constraintTop_toTopOf="@id/doctor_text_view"
+        app:layout_constraintBottom_toBottomOf="@id/doctor_text_view"
+        android:rotation="180"
+        android:backgroundTint="@color/orange"
+        />
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/doctor_text_view"
+        android:layout_marginTop="@dimen/margin_medium"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

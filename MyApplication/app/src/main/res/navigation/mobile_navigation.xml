@@ -14,7 +14,11 @@
         android:id="@+id/navigation_appointment"
         android:name="com.example.myapplication.ui.appointment.AppointmentFragment"
         tools:layout="@layout/fragment_appointment"
-        />
+        >
+        <action
+            android:id="@+id/action_navigation_appointment_to_appointmentSecondStepFragment"
+            app:destination="@id/appointmentSecondStepFragment" />
+    </fragment>
     <fragment
         android:id="@+id/magazine_card"
         android:name="com.example.myapplication.ui.magazine.MagazineFragment"
@@ -25,4 +29,13 @@
         android:id="@+id/navigation_menu"
         android:name="com.example.myapplication.ui.menu.MenuFragment"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/appointmentSecondStepFragment"
+        android:name="com.example.myapplication.ui.appointment.AppointmentSecondStepFragment"
+        android:label="fragment_appointment_second_step"
+        tools:layout="@layout/fragment_appointment_second_step" >
+        <action
+            android:id="@+id/action_appointmentSecondStepFragment_to_navigation_appointment"
+            app:destination="@id/navigation_appointment" />
+    </fragment>
 </navigation>
