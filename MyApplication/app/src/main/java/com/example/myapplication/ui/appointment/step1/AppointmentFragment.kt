@@ -41,23 +41,16 @@ class AppointmentFragment : Fragment() {
         val adapter = DoctorListAdapter { doctor -> onDoctorClick(doctor)}
         binding.recyclerView.adapter = adapter
 
-        binding.changeBranchButton.setOnClickListener {
-            viewModel.changeBranchAndGetDoctors()
-            ObjectAnimator.ofFloat(
-                binding.changeBranchButton,
-                View.ROTATION,
-                0f,
-                180f
-            ).apply {
-                duration = 200
-            }.start()
+        binding.branchAdult.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.changeBranchAndGetDoctors(isChecked)
+            binding.branchKids.isChecked = !isChecked
         }
 
-        lifecycleScope.launch {
-            viewModel.isAdultBranch.collect { isAdultBranch ->
-                binding.branch.text = if(isAdultBranch) "Взрослое отделение" else "Детское отделение"
-            }
+        binding.branchKids.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.changeBranchAndGetDoctors(!isChecked)
+            binding.branchAdult.isChecked = !isChecked
         }
+
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {

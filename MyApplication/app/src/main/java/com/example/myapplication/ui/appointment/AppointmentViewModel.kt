@@ -27,16 +27,15 @@ class AppointmentViewModel @Inject constructor(
     val step2State = _step2State.asStateFlow()
 
     init {
-        changeBranchAndGetDoctors()
+        changeBranchAndGetDoctors(true)
     }
 
-    fun changeBranchAndGetDoctors() {
+    fun changeBranchAndGetDoctors(isAdult: Boolean) {
         viewModelScope.launch {
             _state.value = AppointmentState.Loading
             try {
-                val isAdultTemp = !_isAdultBranch.value
-                val allDoctorList = repository.getAllDoctors(isAdultTemp)
-                _isAdultBranch.value = isAdultTemp
+                val allDoctorList = repository.getAllDoctors(isAdult)
+                _isAdultBranch.value = isAdult
                 _state.value = AppointmentState.Success(allDoctorList)
             } catch (t: Throwable) {
                 _state.value = AppointmentState.Error(t)

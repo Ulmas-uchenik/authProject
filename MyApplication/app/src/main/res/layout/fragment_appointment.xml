@@ -41,24 +41,27 @@
         android:background="@color/background_gray"
         android:padding="@dimen/margin_medium">
 
-        <TextView
-            android:id="@+id/branch"
-            android:layout_width="wrap_content"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/branch_adult"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="Взрослое Отделение"
-            android:textColor="@color/little_black"
-            android:textSize="@dimen/text_medium"
-            app:layout_constraintStart_toStartOf="@id/card_doctor_services"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/change_branch_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/cached_24px"
-            app:layout_constraintBottom_toBottomOf="@id/branch"
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/branch_kids"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            android:text="Детское Отделение"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/branch" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/branch_adult" />
 
 
         <androidx.cardview.widget.CardView
@@ -69,7 +72,7 @@
             app:cardCornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/branch">
+            app:layout_constraintTop_toBottomOf="@id/branch_kids">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
