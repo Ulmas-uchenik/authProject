@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/navigation_appointment"
-        android:name="com.example.myapplication.ui.appointment.AppointmentFragment"
+        android:name="com.example.myapplication.ui.appointment.step1.AppointmentFragment"
         tools:layout="@layout/fragment_appointment"
         >
         <action
@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_menu" />
     <fragment
         android:id="@+id/appointmentSecondStepFragment"
-        android:name="com.example.myapplication.ui.appointment.AppointmentSecondStepFragment"
+        android:name="com.example.myapplication.ui.appointment.step2.AppointmentSecondStepFragment"
         android:label="fragment_appointment_second_step"
         tools:layout="@layout/fragment_appointment_second_step" >
         <action

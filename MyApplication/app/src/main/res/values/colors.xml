@@ -11,6 +11,7 @@
     <color name="background_gray">#ededed</color>
     <color name="little_black">#404040</color>
     <color name="orange">#FE8B2D</color>
+    <color name="background_orange">#fae3d2</color>
     <color name="blue">#EBF3FB</color>
     <color name="empty">#00000000</color>
 </resources>

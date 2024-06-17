@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.appointment
+package com.example.myapplication.ui.appointment.step1
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
