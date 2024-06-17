@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services")
 }
 
 
@@ -54,9 +55,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     //MVVM
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.1")
-    implementation("androidx.fragment:fragment-ktx:1.7.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.2")
+    implementation("androidx.fragment:fragment-ktx:1.8.0")
 
     //OKHttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
@@ -67,7 +68,19 @@ dependencies {
 
     //Hilt
     implementation ("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.androidx.activity)
     kapt ("com.google.dagger:hilt-compiler:2.51.1")
+
+    //Android navigation X
+    implementation("androidx.fragment:fragment-ktx:1.8.0")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation ("androidx.navigation:navigation-ui:2.7.7")
+
+    // firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

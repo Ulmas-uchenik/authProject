@@ -9,6 +9,14 @@
     <string name="chat_with_operator">Чат с оператором</string>
     <string name="make_an_appointment">Записаться на прием</string>
     <string name="logbook_write">Журнал Записей</string>
+
+    <string name="auth_success">Вы успешно зарегистрировались поздравляю</string>
+    <string name="sign_out_from_account">Выйти из аккаунта</string>
+    <string name="put_auth_code">Введите код который регистрации</string>
+    <string name="check">Проверить</string>
+    <string name="put_your_phone_number">Введите свой номер телефона</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

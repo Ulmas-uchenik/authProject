@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "397960135880",
+    "project_id": "infodent-4f438",
+    "storage_bucket": "infodent-4f438.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397960135880:android:2e8f384deeecd0593d91fd",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPAey_D8u4vOhIIeCwhVHPhXQEW3MauUM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
