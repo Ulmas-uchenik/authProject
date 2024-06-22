@@ -1,16 +1,18 @@
 package com.example.myapplication.data.api
 
+import com.example.myapplication.data.models.CategoriesList
+import com.example.myapplication.data.models.IsAuthorise
+import com.example.myapplication.data.models.ServicesList
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import java.math.BigInteger
-import java.security.MessageDigest
+import retrofit2.http.Query
 import javax.inject.Inject
 
 // Версия два
-private val BASE_URL = "https://stoma.irtep.ru/"
+private val BASE_URL = "http://irtep.ru/stoma/index.php/"
 
 class RetrofitInstance @Inject constructor() {
     private val retrofit = Retrofit.Builder()
@@ -33,14 +35,22 @@ interface IntentApiInterface {
     @GET(value = "activity")
     suspend fun getUsefulClass()
 
+    @GET(value = "?func=autorize")
+    suspend fun authorize(
+        @Query("phone") phone: String,
+        @Query("secret") secret: String,
+        @Query("password") password: String,
+    ): IsAuthorise
+
+    @GET(value = "?func=categories")
+    suspend fun getAllCategories(
+        @Query("key") key: String
+    ) : CategoriesList
+
+    @GET(value = "?func=services")
+    suspend fun getServices(
+        @Query("key") key: String,
+        @Query("category") category: String
+    ) : ServicesList
 }
 
-
-fun main(){
-    println(md5Hash(" 79520229480qwerty"))
-}
-fun md5Hash(str: String): String {
-    val md = MessageDigest.getInstance("MD5")
-    val bigInt = BigInteger(1, md.digest(str.toByteArray(Charsets.UTF_8)))
-    return String.format("%032x", bigInt)
-}

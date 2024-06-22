@@ -15,6 +15,7 @@
         android:layout_gravity="top">
 
         <ImageButton
+            android:id="@+id/back_button_toolbar"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/baseline_arrow_back_24"
@@ -35,44 +36,37 @@
         android:layout_height="1dp"
         android:background="#B1B1B1" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TabLayoutChooseBranch"
+        />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background_gray"
-        android:padding="@dimen/margin_medium">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/branch_adult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Взрослое Отделение"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/branch_kids"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_upper_little"
-            android:text="Детское Отделение"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/branch_adult" />
-
+        android:paddingHorizontal="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingBottom="80dp"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_doctor_services"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_huge"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:cardCornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/branch_kids">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"

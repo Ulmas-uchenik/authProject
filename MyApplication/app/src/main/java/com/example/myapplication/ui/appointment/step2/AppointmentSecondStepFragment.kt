@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentAppointmentSecondStepBinding
 import com.example.myapplication.ui.appointment.AppointmentViewModel
 import com.example.myapplication.ui.appointment.AppointmentViewModelFactory
@@ -31,20 +33,24 @@ class AppointmentSecondStepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.getDoctorServices(viewModel.isAdultBranch.value, viewModel.chosenDoctor.value)
         _binding = FragmentAppointmentSecondStepBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.doctor.text = viewModel.chosenDoctor.value
+        viewModel.getServices(viewModel.isAdultBranch.value, viewModel.chosenDoctor.value[0], binding.cardDoctorServices.context)
+        binding.doctor.text = viewModel.chosenDoctor.value[1]
         val adapter = DoctorServicesListAdapter()
         binding.recyclerView.adapter = adapter
 
+        binding.backButtonToolbar.setOnClickListener {
+            findNavController().navigate(R.id.action_appointmentSecondStepFragment_to_navigation_appointment)
+        }
+
         lifecycleScope.launch {
             viewModel.step2State.collect { state ->
-                when (state) {
+                when(state) {
                     is Step2State.Loading -> {
                         binding.progressBar.isVisible = true
                         binding.recyclerView.isVisible = false
@@ -58,7 +64,7 @@ class AppointmentSecondStepFragment : Fragment() {
                         binding.recyclerView.isVisible = true
                     }
                     is Step2State.Success -> {
-                        adapter.setData(state.allDoctorServicesList)
+                        adapter.setData(state.servicesList)
                         binding.progressBar.isVisible = false
                         binding.recyclerView.isVisible = true
                     }

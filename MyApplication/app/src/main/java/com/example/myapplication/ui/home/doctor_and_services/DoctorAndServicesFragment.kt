@@ -1,6 +1,5 @@
-package com.example.myapplication.ui.appointment.step1
+package com.example.myapplication.ui.home.doctor_and_services
 
-import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,43 +7,52 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentAppointmentBinding
+import com.example.myapplication.databinding.FragmentDoctorAndServicesBinding
 import com.example.myapplication.ui.appointment.AppointmentState
 import com.example.myapplication.ui.appointment.AppointmentViewModel
 import com.example.myapplication.ui.appointment.AppointmentViewModelFactory
+import com.example.myapplication.ui.appointment.step1.DoctorListAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 @AndroidEntryPoint
-class AppointmentFragment : Fragment() {
-    private var _binding: FragmentAppointmentBinding? = null
+class DoctorAndServicesFragment : Fragment() {
+    private var _binding: FragmentDoctorAndServicesBinding? = null
     private val binding get() = _binding!!
-    @Inject
-    lateinit var viewModelFactory: AppointmentViewModelFactory
-    private val viewModel: AppointmentViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager2: ViewPager2
 
+    @Inject
+    lateinit var viewModelFactory: AppointmentViewModelFactory
+    private val viewModel: AppointmentViewModel by viewModels { viewModelFactory }
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAppointmentBinding.inflate(inflater, container, false)
+        _binding = FragmentDoctorAndServicesBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name)}
+        val adapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name) }
         binding.recyclerView.adapter = adapter
+
         tabLayout = binding.tabLayout
         viewPager2 = binding.viewPager2
 
@@ -53,7 +61,7 @@ class AppointmentFragment : Fragment() {
 
         viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
 
-        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        tabLayout.addOnTabSelectedListener(object: OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
@@ -79,7 +87,7 @@ class AppointmentFragment : Fragment() {
             }
         })
 
-        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.selectTab(tabLayout.getTabAt(position))
@@ -87,7 +95,7 @@ class AppointmentFragment : Fragment() {
         })
 
         binding.backButtonToolbar.setOnClickListener {
-            findNavController().navigate(R.id.navigation_home)
+            findNavController().navigate(R.id.action_doctorAndServicesFragment_to_navigation_home)
         }
 
         lifecycleScope.launch {
@@ -97,14 +105,20 @@ class AppointmentFragment : Fragment() {
                         binding.progressBar.isVisible = true
                         binding.recyclerView.isVisible = false
                     }
+
                     is AppointmentState.Error -> {
                         Log.d("Data", state.e.message.toString())
-                        Snackbar.make(binding.recyclerView, "Произошла ошибка, не удалось сменить отделение", Snackbar.LENGTH_LONG)
+                        Snackbar.make(
+                            binding.recyclerView,
+                            "Произошла ошибка, не удалось сменить отделение",
+                            Snackbar.LENGTH_LONG
+                        )
                             .setBackgroundTint(Color.parseColor("#FFD85959"))
                             .show()
                         binding.progressBar.isVisible = false
                         binding.recyclerView.isVisible = true
                     }
+
                     is AppointmentState.Success -> {
                         adapter.setData(state.allDoctorsList)
                         binding.progressBar.isVisible = false
@@ -115,9 +129,9 @@ class AppointmentFragment : Fragment() {
         }
     }
 
-    private fun onDoctorClick(category: String, name: String){
-        viewModel.chooseDoctor(category, name)
-        findNavController().navigate(R.id.action_navigation_appointment_to_appointmentSecondStepFragment)
+    private fun onDoctorClick(doctor: String, name: String) {
+        viewModel.chooseDoctor(doctor, name)
+
     }
 
     override fun onDestroy() {

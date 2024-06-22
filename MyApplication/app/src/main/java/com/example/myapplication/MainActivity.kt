@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.myapplication.data.DoctorRepository
+import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.auth.AUTH
 import com.example.myapplication.ui.auth.AuthActivity
@@ -21,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val repository = DoctorRepository(RetrofitInstance())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +33,14 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        authorizedUser()
+        isAuthorise(this)
+
+        binding.exitFromAccount.setOnClickListener {
+            repository.exitFromAccount(this)
+            isAuthorise(this)
+            this.finish()
+        }
+
 
         val navView: BottomNavigationView = binding.navView
 
@@ -38,18 +49,22 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_appointment, R.id.magazine_card, R.id.navigation_menu
+                R.id.navigation_home,
+                R.id.navigation_appointment,
+                R.id.magazine_card,
+                R.id.navigation_menu
             )
         )
         navView.setupWithNavController(navController)
 
-        binding.tempExit.setOnClickListener {
-            AUTH.signOut()
-            startActivity(Intent(this, AuthActivity::class.java))
-            Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
-
     }
+
+    private fun isAuthorise(context: Context) {
+        if (repository.getKey(this) == null) {
+            startActivity(Intent(this, AuthActivity::class.java))
+        }
+    }
+
     private fun authorizedUser() {
         Log.d(AuthViewModel.AUTH_TAG, "Берем пользователя")
         AUTH = FirebaseAuth.getInstance()

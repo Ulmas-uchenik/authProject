@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -22,8 +24,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.appointmentCard.setOnClickListener {
-            Snackbar.make(it, "сделать переход на запись врача", Snackbar.LENGTH_LONG)
+            Snackbar.make(it, "сделать переход на прием врача", Snackbar.LENGTH_LONG)
                 .show()
+
         }
 
         binding.logbookCard.setOnClickListener {
@@ -32,8 +35,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.doctorsAndServicesCard.setOnClickListener {
-            Snackbar.make(it, "сделать переход на докторов и услуг", Snackbar.LENGTH_LONG)
-                .show()
+            findNavController().navigate(R.id.action_navigation_home_to_doctorAndServicesFragment)
+
         }
 
         binding.personalRoom.setOnClickListener {
