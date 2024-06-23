@@ -3,9 +3,7 @@ package com.example.myapplication.ui.appointment
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.MainActivity
 import com.example.myapplication.data.DoctorRepository
-import com.example.myapplication.ui.appointment.AppointmentState
 import com.example.myapplication.ui.appointment.step2.Step2State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,9 +19,8 @@ class AppointmentViewModel @Inject constructor(
     private val _isAdultBranch = MutableStateFlow(false)
     val isAdultBranch = _isAdultBranch.asStateFlow()
 
-    private val _chosenDoctor = MutableStateFlow<List<String>>(emptyList())
-
-    val chosenDoctor = _chosenDoctor.asStateFlow()
+    private val _chosenCategory = MutableStateFlow<List<String>>(emptyList())
+    val chosenCategory = _chosenCategory.asStateFlow()
 
     // Appointment Fragment Step 2
     private val _step2State = MutableStateFlow<Step2State>(Step2State.Loading)
@@ -34,7 +31,6 @@ class AppointmentViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = AppointmentState.Loading
             try {
-                val allDoctorList = repository.getAllDoctors(isAdult)
                 _isAdultBranch.value = isAdult
                 val categoryList = repository.getAllCategories(context)
                 _state.value = AppointmentState.Success(categoryList.categories)
@@ -44,8 +40,8 @@ class AppointmentViewModel @Inject constructor(
         }
     }
 
-    fun chooseDoctor(category: String, name: String) {
-        _chosenDoctor.value = listOf(category, name)
+    fun chooseCategory(category: String, name: String) {
+        _chosenCategory.value = listOf(category, name)
     }
 
     fun getServices(isAdultBranch: Boolean, category: String, context: Context) {

@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.appointment.step1
 
-import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -116,7 +115,7 @@ class AppointmentFragment : Fragment() {
     }
 
     private fun onDoctorClick(category: String, name: String){
-        viewModel.chooseDoctor(category, name)
+        viewModel.chooseCategory(category, name)
         findNavController().navigate(R.id.action_navigation_appointment_to_appointmentSecondStepFragment)
     }
 

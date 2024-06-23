@@ -3,11 +3,9 @@ package com.example.myapplication.ui.home.doctor_and_services
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.MainActivity
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.ui.appointment.AppointmentState
-import com.example.myapplication.ui.appointment.step2.Step2State
-import kotlinx.coroutines.delay
+import com.example.myapplication.ui.home.services.ServiceState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -22,24 +20,40 @@ class DoctorAndServicesViewModel @Inject constructor(
     private val _isAdultBranch = MutableStateFlow(false)
     val isAdultBranch = _isAdultBranch.asStateFlow()
 
-    private val _chosenDoctor = MutableStateFlow("")
-    val chosenDoctor = _chosenDoctor.asStateFlow()
+    private val _chosenCategory = MutableStateFlow<List<String>>(emptyList())
+    val chosenCategory = _chosenCategory.asStateFlow()
+
+    // Service Fragment
+    private val _stateService = MutableStateFlow<ServiceState>(ServiceState.Success("Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение"))
+    val stateService = _stateService.asStateFlow()
 
     fun changeBranchAndGetDoctors(isAdult: Boolean, context: Context) {
         viewModelScope.launch {
             _state.value = AppointmentState.Loading
             try {
-                val allDoctorList = repository.getAllDoctors(isAdult)
-                val allCategories = repository.getAllCategories(context)
                 _isAdultBranch.value = isAdult
-//                _state.value = AppointmentState.Success(allDoctorList)
+                val categoryList = repository.getAllCategories(context)
+                _state.value = AppointmentState.Success(categoryList.categories)
             } catch (t: Throwable) {
                 _state.value = AppointmentState.Error(t)
             }
         }
     }
 
-    fun chooseDoctor(doctor: String) {
-        _chosenDoctor.value = doctor
+    fun chooseDoctor(category: String, name: String) {
+        _chosenCategory.value = listOf(category, name)
     }
+
+    fun getAppearanceCategory(category: String) {
+        viewModelScope.launch {
+            _stateService.value = ServiceState.Loading
+            try {
+                val appearanceCategory = repository.getAppearanceCategory()
+                _stateService.value = ServiceState.Success(appearanceCategory)
+            } catch (t: Throwable){
+                _stateService.value = ServiceState.Error(t.message.toString())
+            }
+        }
+    }
+
 }

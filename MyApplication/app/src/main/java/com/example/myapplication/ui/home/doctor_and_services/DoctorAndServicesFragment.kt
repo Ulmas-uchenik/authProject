@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -38,8 +39,8 @@ class DoctorAndServicesFragment : Fragment() {
     private lateinit var tabLayoutDoctor: TabLayout
 
     @Inject
-    lateinit var viewModelFactory: AppointmentViewModelFactory
-    private val viewModel: AppointmentViewModel by viewModels { viewModelFactory }
+    lateinit var viewModelFactory: DoctorAndServicesViewModelFactory
+    private val viewModel: DoctorAndServicesViewModel by activityViewModels { viewModelFactory }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,7 +62,7 @@ class DoctorAndServicesFragment : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_adult))
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_kids))
 
-        tabLayoutDoctor.addTab(tabLayoutDoctor.newTab().setText(R.string.services   ))
+        tabLayoutDoctor.addTab(tabLayoutDoctor.newTab().setText(R.string.services))
         tabLayoutDoctor.addTab(tabLayoutDoctor.newTab().setText(R.string.doctors))
 
         viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
@@ -147,7 +148,7 @@ class DoctorAndServicesFragment : Fragment() {
 
     private fun onDoctorClick(doctor: String, name: String) {
         viewModel.chooseDoctor(doctor, name)
-
+        findNavController().navigate(R.id.action_doctorAndServicesFragment_to_servicesFragment)
     }
 
     override fun onDestroy() {

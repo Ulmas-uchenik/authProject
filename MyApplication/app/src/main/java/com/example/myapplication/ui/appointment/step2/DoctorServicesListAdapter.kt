@@ -31,9 +31,10 @@ class DoctorServicesListAdapter(
         with(holder.binding) {
             doctorTextView.text = item.description
             priceTextView.text = "${item.price} ₽"
-            if(position == values.size - 1){
+            if(position == values.size - 1)
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
-            }
+             else
+                bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
             Glide.with(imageView.context)
                 .load("https://cdn-icons-png.flaticon.com/512/5604/5604732.png")
                 .into(imageView)

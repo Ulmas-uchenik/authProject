@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.home.services.ServicesFragment">
 
@@ -17,9 +18,107 @@
         <TextView
             style="@style/tab_layout_title_text"
             android:text="@string/services" />
+
     </Toolbar>
+    <TextView
+        android:id="@+id/text_view_category"
+        android:layout_width="match_parent"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:textSize="@dimen/text_huge"
+        tools:text="Терапевт"
+        android:layout_marginBottom="@dimen/margin_upper_little"
+        android:textColor="@color/little_black"
+        android:textStyle="bold"
+        />
 
     <View style="@style/tab_layout_bottom_line" />
 
-    
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_gray"
+        android:paddingHorizontal="@dimen/margin_medium"
+        android:paddingTop="@dimen/margin_medium"
+        android:paddingBottom="80dp"
+        >
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/recycler_view_card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:cardCornerRadius="12sp"
+          app:layout_constraintStart_toStartOf="parent"
+          >
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recycler_view"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+              android:orientation="vertical"
+              tools:itemCount="2"
+              tools:listitem="@layout/service_item"
+              />
+      </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="12sp"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            >
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:progress="50"
+                android:visibility="invisible"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_upper_little"
+                />
+
+            <ScrollView
+                android:id="@+id/scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_medium"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/little_black"
+                    android:textSize="@dimen/text_medium"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appearance"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    />
+                <TextView
+                    android:id="@+id/appearance_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/text_little"
+                    android:textColor="@color/gray"
+                    tools:text="@tools:sample/lorem/random"
+
+                    />
+
+            </LinearLayout>
+        </ScrollView>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

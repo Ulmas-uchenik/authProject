@@ -39,4 +39,8 @@
     <string name="step_one">шаг 1 из 4</string>
     <string name="step_second">шаг 2 из 4</string>
     <string name="step_third">шаг 3 из 4</string>
+    <string name="appearance">Описание</string>
+
+
+    <string name="error_when_we_try_get_appearance_category">Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение</string>
 </resources>

@@ -30,11 +30,11 @@ class DoctorListAdapter(
         val item = values[position].name
         with(holder.binding) {
             doctorTextView.text = item
-            if(position == values.size - 1){
+            if(position == values.size - 1)
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
-            } else {
+             else
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.little_black))
-            }
+
         }
         holder.binding.nextButton.setOnClickListener {
             onClick(values[position].id, values[position].name)
