@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.services.ServicesFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        style="@style/tab_layout">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/back_button_toolbar"
+            style="@style/tab_layout_back_button" />
+
+        <TextView
+            style="@style/tab_layout_title_text"
+            android:text="@string/services" />
+    </Toolbar>
+
+    <View style="@style/tab_layout_bottom_line" />
+
+    
+</LinearLayout>

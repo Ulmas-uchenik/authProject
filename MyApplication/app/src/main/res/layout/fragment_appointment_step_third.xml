@@ -9,25 +9,16 @@
 
     <Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top">
+        style="@style/tab_layout">
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/baseline_arrow_back_24"
-            android:backgroundTint="@color/gray" />
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/back_button_toolbar"
+            style="@style/tab_layout_back_button" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Шаг 3 из 4"
-            android:textColor="@color/little_black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-        
+            style="@style/tab_layout_title_text"
+            android:text="@string/step_third"/>
+
         <Button
             android:id="@+id/button_on_all_doctors"
             android:layout_width="wrap_content"
@@ -37,16 +28,12 @@
             android:textAllCaps="false"
             android:textColor="@color/orange"
             android:textStyle="bold"
-            android:background="@drawable/shape_oragne_button"
+            android:background="@drawable/shape_orange_button"
             android:layout_gravity="end"
             android:textSize="@dimen/text_little"
-            android:text="К врачу"
+            android:text="@string/by_doctor"
             />
     </Toolbar>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#B1B1B1" />
-
+    <View style="@style/tab_layout_bottom_line" />
 
 </LinearLayout>

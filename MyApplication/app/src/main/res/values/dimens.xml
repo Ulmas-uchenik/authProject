@@ -18,4 +18,9 @@
     <dimen name="text_medium">24sp</dimen>
     <dimen name="text_upper_medium">28sp</dimen>
     <dimen name="text_huge">32sp</dimen>
+
+<!--    tab layout dimens-->
+    <dimen name="tab_layout_back_button_height">40dp</dimen>
+    <dimen name="tab_layout_back_button_width">40dp</dimen>
+
 </resources>

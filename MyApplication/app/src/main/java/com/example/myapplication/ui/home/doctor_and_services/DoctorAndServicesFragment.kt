@@ -35,6 +35,7 @@ class DoctorAndServicesFragment : Fragment() {
 
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager2: ViewPager2
+    private lateinit var tabLayoutDoctor: TabLayout
 
     @Inject
     lateinit var viewModelFactory: AppointmentViewModelFactory
@@ -55,9 +56,13 @@ class DoctorAndServicesFragment : Fragment() {
 
         tabLayout = binding.tabLayout
         viewPager2 = binding.viewPager2
+        tabLayoutDoctor = binding.tabLayoutDoctorServices
 
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_adult))
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_kids))
+
+        tabLayoutDoctor.addTab(tabLayoutDoctor.newTab().setText(R.string.services   ))
+        tabLayoutDoctor.addTab(tabLayoutDoctor.newTab().setText(R.string.doctors))
 
         viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
 
@@ -65,32 +70,43 @@ class DoctorAndServicesFragment : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
-
                     when(tab.position){
-                        0 -> {
-                            viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
-                        }
-                        1-> {
-                            viewModel.changeBranchAndGetDoctors(false, binding.cardDoctorServices.context)
-                        }
+                        0 -> viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
+                        1-> viewModel.changeBranchAndGetDoctors(false, binding.cardDoctorServices.context)
                     }
                 }
 
             }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
+        tabLayoutDoctor.addOnTabSelectedListener(object: OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    viewPager2.currentItem = tab.position
+                    when(tab.position){
+                        0 -> {}
+                        1-> {}
+                    }
+                }
 
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
         viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.selectTab(tabLayout.getTabAt(position))
+            }
+        })
+
+        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                tabLayoutDoctor.selectTab(tabLayout.getTabAt(position))
             }
         })
 
