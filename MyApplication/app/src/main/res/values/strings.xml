@@ -1,46 +1,34 @@
 <resources>
     <string name="app_name">My Application</string>
-
-    <string name="user_name">Имя</string>
-    <string name="logo">Логотип</string>
-
-<!--    home fragment button-->
+    <string name="navigation_home">Главная</string>
+    <string name="navigation_appointment">Запись</string>
+    <string name="navigation_magazine">Журнал</string>
+    <string name="navigation_menu">Меню</string>
+    <string name="doctor_and_services">Врачи и услуги</string>
     <string name="personal_room">Личный кабинет</string>
     <string name="chat_with_operator">Чат с оператором</string>
     <string name="make_an_appointment">Записаться на прием</string>
     <string name="logbook_write">Журнал Записей</string>
 
-<!--    Auth-->
-    <string name="auth">Зарегистрироваться</string>
-    <string name="check">Проверить</string>
+    <string name="auth_success">Вы успешно зарегистрировались поздравляю</string>
     <string name="sign_out_from_account">Выйти из аккаунта</string>
     <string name="put_auth_code">Введите код который регистрации</string>
-    <string name="auth_success">Вы успешно зарегистрировались поздравляю</string>
+    <string name="check">Проверить</string>
     <string name="put_your_phone_number">Введите свой номер телефона</string>
-    <string name="pass">Введите пароль</string>
-    <string name="conform_pass">Подтверждение пароля</string>
-
-
-<!--    Bottom navigation bar-->
-    <string name="navigation_home">Главная</string>
-    <string name="navigation_appointment">Запись</string>
-    <string name="navigation_magazine">Журнал</string>
-    <string name="navigation_menu">Меню</string>
-
-<!--    Tab layout-->
+    <string name="step_one">Шаг 1</string>
+    <string name="step_second">Шаг 2</string>
+    <string name="step_third">Шаг 3</string>
+    <string name="by_doctor">Врачи</string>
+    <string name="services">Услуги</string>
+    <string name="appearance">Описание</string>
     <string name="branch_adult">Взрослое отделение</string>
     <string name="branch_kids">Детское отделение</string>
-
-<!--    ToolBar-->
-    <string name="doctor_and_services">Врачи и услуги</string>
-    <string name="services">Услуги</string>
     <string name="doctors">Врачи</string>
-    <string name="by_doctor">К врачу</string>
-    <string name="step_one">шаг 1 из 4</string>
-    <string name="step_second">шаг 2 из 4</string>
-    <string name="step_third">шаг 3 из 4</string>
-    <string name="appearance">Описание</string>
-
-
-    <string name="error_when_we_try_get_appearance_category">Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение</string>
+    <string name="error_when_we_try_get_appearance_category">Ошибка загрузки данных отделения</string>
+    <string name="pass">Введите пароль</string>
+    <string name="conform_pass">Подтверждение пароля</string>
+    <string name="user_name">Имя</string>
+    <string name="logo">Логотип</string>
+    <string name="auth">Регистрация</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

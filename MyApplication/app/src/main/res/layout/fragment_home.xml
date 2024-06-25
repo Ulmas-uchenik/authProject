@@ -12,6 +12,7 @@
         android:layout_width="300dp"
         android:layout_height="0dp"
         android:layout_marginTop="60dp"
+        android:contentDescription="@+id/logo"
         android:src="@drawable/stoma"
         app:layout_constraintDimensionRatio="3:1"
         app:layout_constraintEnd_toEndOf="parent"

@@ -40,7 +40,7 @@ class DoctorRepository @Inject constructor(
         return prefs.getString(SHARED_PREFS_KEY, null)
     }
     suspend fun authorise(phone: String, password: String): IsAuthorise {
-        val numberForSecret = phone.replaceFirst("7", " 7")
+        val numberForSecret = phone.replaceFirst("", " ")
         println(numberForSecret)
         val numberSecret = "${numberForSecret}qwerty"
         println(numberSecret)

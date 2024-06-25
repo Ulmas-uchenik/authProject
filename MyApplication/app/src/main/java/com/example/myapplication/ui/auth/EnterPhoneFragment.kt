@@ -56,6 +56,7 @@ class EnterPhoneFragment : Fragment() {
                     .show()
                 Log.d(AuthViewModel.AUTH_TAG, "Создание phoneProvider")
                 viewModel.authorise(binding.editText.context, tempPhoneNumber.toString(), binding.editPass.text.toString())
+
 //                PhoneAuthProvider.getInstance().verifyPhoneNumber(
 //                    phoneNumber, 10, TimeUnit.SECONDS,
 //                    activity as AuthActivity,

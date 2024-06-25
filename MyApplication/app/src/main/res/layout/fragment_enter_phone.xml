@@ -76,7 +76,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:hint="@string/pass"
-            android:maxLength="20" />
+            android:maxLength="11" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -96,7 +96,7 @@
             android:inputType="textPassword"
             android:singleLine="true"
             android:hint="@string/conform_pass"
-            android:maxLength="20" />
+            android:maxLength="11" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
