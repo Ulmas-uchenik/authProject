@@ -1,7 +1,6 @@
 package com.example.myapplication.ui.auth
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DoctorRepository
@@ -48,6 +47,18 @@ class AuthViewModel(
 //            _state.value = AuthState.Register
 //        }
 //    }
+
+    fun addPlusBeforeNumber(telephoneNumber: String)=  if(isTestTelephoneNumber(telephoneNumber))
+            "+${telephoneNumber}"
+        else
+            "+7${telephoneNumber}"
+
+
+    fun numberPhoneIsValid(telephoneNumber: String): Boolean{
+        if(isTestTelephoneNumber(telephoneNumber)) return true
+        return telephoneNumber.length == 10
+    }
+
     fun setId(id: String) {
         _id.value = id
     }
@@ -58,8 +69,15 @@ class AuthViewModel(
         )
     }
 
+    private fun isTestTelephoneNumber(telephoneNumber: String): Boolean {
+        var answer = false
+        testTelephoneNumber.forEach { if(it == telephoneNumber) answer = true }
+        return answer
+    }
+
     companion object {
         const val AUTH_TAG = "auth process"
+        val testTelephoneNumber = listOf("16505553434", "16505551234")
     }
 }
 

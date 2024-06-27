@@ -45,25 +45,7 @@ class EnterPhoneFragment : Fragment() {
 
         // проверка номера телефона
         binding.registerButton.setOnClickListener {
-            val tempPhoneNumber = binding.editText.text
-            val password = binding.editPass.text.toString()
-            if (tempPhoneNumber.isNullOrEmpty() || tempPhoneNumber.length < 9) {
-                Toast.makeText(context, "Введите номер тефона верно пожалуйста", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                val phoneNumber = "+${tempPhoneNumber}"
-
-                Toast.makeText(context, "ваш номер телефона :$phoneNumber", Toast.LENGTH_SHORT)
-                    .show()
-                viewModel.setPhonePassword(tempPhoneNumber.toString(), password)
-
-                Log.d(AuthViewModel.AUTH_TAG, "Создание phoneProvider")
-//                viewModel.authorise(binding.editText.context, tempPhoneNumber.toString(), binding.editPass.text.toString())
-
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    phoneNumber, 10, TimeUnit.SECONDS, activity as AuthActivity, mCallback
-                )
-            }
+            checkTelephoneNumberAndGetPassword(binding.editText.text.toString(), binding.editPass.text.toString())
         }
 
 //        binding.changeOnSignInButton.setOnClickListener {
@@ -73,7 +55,6 @@ class EnterPhoneFragment : Fragment() {
 //        binding.changeOnRegisterButton.setOnClickListener {
 //            viewModel.changeStateSign(false)
 //        }
-
 
 
 //        lifecycleScope.launch {
@@ -127,6 +108,22 @@ class EnterPhoneFragment : Fragment() {
 //                }
 //            }
 //        }
+    }
+    
+
+
+    private fun checkTelephoneNumberAndGetPassword(telephoneNumber: String, password: String) {
+        if (viewModel.numberPhoneIsValid(telephoneNumber)) {
+            val phoneNumber = viewModel.addPlusBeforeNumber(telephoneNumber)
+            viewModel.setPhonePassword(telephoneNumber, password)
+            Toast.makeText(binding.layoutEditName.context, "permission is $phoneNumber", Toast.LENGTH_SHORT).show()
+
+            Log.d(AuthViewModel.AUTH_TAG, "Создание phoneProvider")
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                phoneNumber, 10, TimeUnit.SECONDS, activity as AuthActivity, mCallback
+            )
+        } else Toast.makeText(context, "Вы ввели не валидный номер телефона", Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun createCallbackForPhoneProvider() {
