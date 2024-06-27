@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.auth
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DoctorRepository
@@ -20,27 +21,49 @@ class AuthViewModel(
     private val _id = MutableStateFlow<String>("")
     val id = _id.asStateFlow()
 
+    private val _userWithPhonePassword = MutableStateFlow<UserWithNumberPassword>(
+        UserWithNumberPassword("",""))
+
     fun getKey(context: Context): String? {
         return repository.getKey(context)
     }
-    fun authorise(context: Context, phone: String, password: String){
+    fun authorise(context: Context){
         viewModelScope.launch {
             _state.value = AuthState.Loading
             val isAuth: IsAuthorise
             try {
-                 isAuth = repository.authorise(phone, password)
-                _state.value = AuthState.Success(isAuth.sid.isNotEmpty())
+                isAuth = repository.authorise(_userWithPhonePassword.value.phone, _userWithPhonePassword.value.password)
                 repository.putKeySid(context, isAuth.sid)
+                _state.value = AuthState.Success(isAuth.sid.isNotEmpty())
             } catch (t: Throwable) {
                 _state.value = AuthState.Error(t.message.toString())
             }
         }
     }
+
+//    fun changeStateSign(boolean: Boolean){
+//        if(boolean){
+//            _state.value = AuthState.SingIn
+//        } else {
+//            _state.value = AuthState.Register
+//        }
+//    }
     fun setId(id: String) {
         _id.value = id
+    }
+
+    fun setPhonePassword(phone: String, password: String){
+        _userWithPhonePassword.value = UserWithNumberPassword(
+            phone = phone, password = password
+        )
     }
 
     companion object {
         const val AUTH_TAG = "auth process"
     }
 }
+
+data class UserWithNumberPassword(
+    val phone: String,
+    val password: String
+)

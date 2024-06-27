@@ -18,6 +18,7 @@
     <color name="background_orange">#fae3d2</color>
     <color name="blue">#EBF3FB</color>
     <color name="empty">#00000000</color>
+    <color name="blue_text_button">#2E9EEA</color>
 
 <!--    tool bar line-->
     <color name="tool_bar_line">#B1B1B1</color>

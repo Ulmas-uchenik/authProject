@@ -1,9 +1,9 @@
 package com.example.myapplication.data.models
 
+import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-
 data class IsAuthorise (
-    @Json(name="status") val status: String,
-    @Json(name="sid") val sid: String
+    @SerializedName("Status") val status: String,
+    @SerializedName("Sid") val sid: String
 )

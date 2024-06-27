@@ -32,11 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        isAuthorise(this)
+        authorizedUser()
 
         binding.exitFromAccount.setOnClickListener {
             repository.exitFromAccount(this)
+            AUTH.signOut()
             isAuthorise(this)
             this.finish()
         }
@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
     private fun isAuthorise(context: Context) {
         if (repository.getKey(this) == null) {
             startActivity(Intent(this, AuthActivity::class.java))
+            this.finish()
         }
     }
 
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(AuthViewModel.AUTH_TAG, "Начала процесса регистрации")
             Toast.makeText(this, "Выполните регистрацию пожалуйста", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AuthActivity::class.java))
+            this.finish()
         }
     }
 }

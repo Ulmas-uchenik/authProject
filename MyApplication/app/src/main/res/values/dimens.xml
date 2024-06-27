@@ -9,6 +9,7 @@
 
     <dimen name="margin_little">4dp</dimen>
     <dimen name="margin_upper_little">8dp</dimen>
+    <dimen name="margin_mini_medium">12dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_upper_medium">24dp</dimen>
     <dimen name="margin_huge">32dp</dimen>

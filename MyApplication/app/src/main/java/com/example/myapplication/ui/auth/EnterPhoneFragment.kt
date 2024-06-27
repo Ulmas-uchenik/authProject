@@ -33,8 +33,7 @@ class EnterPhoneFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         createCallbackForPhoneProvider()
         _binding = FragmentEnterPhoneBinding.inflate(inflater)
@@ -45,48 +44,89 @@ class EnterPhoneFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // проверка номера телефона
-        binding.checkTelephoneNumber.setOnClickListener {
+        binding.registerButton.setOnClickListener {
             val tempPhoneNumber = binding.editText.text
+            val password = binding.editPass.text.toString()
             if (tempPhoneNumber.isNullOrEmpty() || tempPhoneNumber.length < 9) {
                 Toast.makeText(context, "Введите номер тефона верно пожалуйста", Toast.LENGTH_SHORT)
                     .show()
             } else {
                 val phoneNumber = "+${tempPhoneNumber}"
+
                 Toast.makeText(context, "ваш номер телефона :$phoneNumber", Toast.LENGTH_SHORT)
                     .show()
+                viewModel.setPhonePassword(tempPhoneNumber.toString(), password)
+
                 Log.d(AuthViewModel.AUTH_TAG, "Создание phoneProvider")
-                viewModel.authorise(binding.editText.context, tempPhoneNumber.toString(), binding.editPass.text.toString())
+//                viewModel.authorise(binding.editText.context, tempPhoneNumber.toString(), binding.editPass.text.toString())
 
-//                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-//                    phoneNumber, 10, TimeUnit.SECONDS,
-//                    activity as AuthActivity,
-//                    mCallback
-//                )
-            }
-
-        }
-
-        lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                when(state) {
-                    is AuthState.Success -> {
-                        if(state.haveSid){
-                            startActivity(Intent(binding.editText.context, MainActivity::class.java))
-                            AuthActivity().finish()
-                        }
-                    }
-                    is AuthState.Loading -> {
-                        Snackbar.make(binding.editText, "Загрузка", Snackbar.LENGTH_SHORT)
-                            .show()
-                    }
-                    is AuthState.Error -> {
-                        Snackbar.make(binding.editText, state.message, Snackbar.LENGTH_LONG)
-                            .setBackgroundTint(Color.parseColor("#FFD85959"))
-                            .show()
-                    }
-                }
+                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    phoneNumber, 10, TimeUnit.SECONDS, activity as AuthActivity, mCallback
+                )
             }
         }
+
+//        binding.changeOnSignInButton.setOnClickListener {
+//            viewModel.changeStateSign(true)
+//        }
+//
+//        binding.changeOnRegisterButton.setOnClickListener {
+//            viewModel.changeStateSign(false)
+//        }
+
+
+
+//        lifecycleScope.launch {
+//            viewModel.state.collect { state ->
+//                when (state) {
+//                    is AuthState.Success -> {
+//                        if (state.haveSid) {
+//                            startActivity(
+//                                Intent(
+//                                    binding.editText.context, MainActivity::class.java
+//                                )
+//                            )
+//                            AuthActivity().finish()
+//                        }
+//                    }
+//
+//                    is AuthState.Loading -> {
+//                        Snackbar.make(binding.editText, "Загрузка", Snackbar.LENGTH_SHORT).show()
+//                    }
+//
+//                    is AuthState.Error -> {
+//                        Snackbar.make(binding.editText, state.message, Snackbar.LENGTH_LONG)
+//                            .setBackgroundTint(Color.parseColor("#FFD85959")).show()
+//                    }
+//
+//                    is AuthState.SingIn -> {
+//                        with(binding) {
+//                            changeOnSignInButton.visibility = View.GONE
+//                            changeOnRegisterButton.visibility = View.VISIBLE
+//
+//                            signInButton.visibility = View.VISIBLE
+//                            registerButton.visibility = View.GONE
+//
+//                            layoutEditConformPass.visibility = View.GONE
+//                            layoutEditName.visibility = View.GONE
+//                        }
+//                    }
+//
+//                    is AuthState.Register -> {
+//                        with(binding) {
+//                            changeOnSignInButton.visibility = View.VISIBLE
+//                            changeOnRegisterButton.visibility = View.GONE
+//
+//                            signInButton.visibility = View.GONE
+//                            registerButton.visibility = View.VISIBLE
+//
+//                            layoutEditConformPass.visibility = View.VISIBLE
+//                            layoutEditName.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun createCallbackForPhoneProvider() {
@@ -98,15 +138,14 @@ class EnterPhoneFragment : Fragment() {
                         Log.d(AuthViewModel.AUTH_TAG, "Пользователь вошел в акк")
                         Toast.makeText(context, "добро пожаловать", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(context, MainActivity::class.java))
+                        AuthActivity().finish()
                     } else {
                         Log.d(
                             AuthViewModel.AUTH_TAG,
                             "после входа в акк произошла ошибка - ${task.exception?.message}"
                         )
                         Toast.makeText(
-                            context,
-                            "У вас случились какие-то проблемы",
-                            Toast.LENGTH_SHORT
+                            context, "У вас случились какие-то проблемы", Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

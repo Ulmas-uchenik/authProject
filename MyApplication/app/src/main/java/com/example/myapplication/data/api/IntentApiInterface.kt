@@ -35,22 +35,22 @@ interface IntentApiInterface {
     @GET(value = "activity")
     suspend fun getUsefulClass()
 
-    @GET(value = "?func=autorize")
+    @GET(value = "?Func=Autorize")
     suspend fun authorize(
-        @Query("phone") phone: String,
-        @Query("secret") secret: String,
-        @Query("password") password: String,
+        @Query("Phone") phone: String,
+        @Query("Secret") secret: String,
+        @Query("Password") password: String,
     ): IsAuthorise
 
-    @GET(value = "?func=categories")
+    @GET(value = "?Func=Categories")
     suspend fun getAllCategories(
-        @Query("key") key: String
+        @Query("Key") key: String
     ) : CategoriesList
 
-    @GET(value = "?func=services")
+    @GET(value = "?Func=Services")
     suspend fun getServices(
-        @Query("key") key: String,
-        @Query("category") category: String
+        @Query("Key") key: String,
+        @Query("Category") category: String
     ) : ServicesList
 }
 

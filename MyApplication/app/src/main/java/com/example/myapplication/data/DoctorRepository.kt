@@ -5,6 +5,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.data.bd.UserDao
 import com.example.myapplication.data.models.CategoriesList
@@ -15,6 +16,8 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import javax.inject.Inject
 import kotlin.random.Random
+
+
 private const val PREFERENCE_NAME = "PreferenceDoctor"
 private const val SHARED_PREFS_KEY = "shared_key"
 class DoctorRepository @Inject constructor(
@@ -40,13 +43,13 @@ class DoctorRepository @Inject constructor(
         return prefs.getString(SHARED_PREFS_KEY, null)
     }
     suspend fun authorise(phone: String, password: String): IsAuthorise {
-        val numberForSecret = phone.replaceFirst("", " ")
+        val numberForSecret = phone/*.replaceFirst("", " ")*/
         println(numberForSecret)
         val numberSecret = "${numberForSecret}qwerty"
         println(numberSecret)
         val secret = md5Hash(numberSecret)
         println(secret)
-        return retrofitInstance.getApiInterface.authorize(" $phone", secret, password)
+        return retrofitInstance.getApiInterface.authorize("$phone", secret, password)
     }
     suspend fun getAllCategories(context: Context): CategoriesList {
         val key = getKey(context)

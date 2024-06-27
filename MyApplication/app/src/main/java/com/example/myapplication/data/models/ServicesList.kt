@@ -1,11 +1,14 @@
 package com.example.myapplication.data.models
 
+import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+
 data class ServicesList (
-    val services: List<Services>
+    @SerializedName("Services") val services: List<Services>
 )
 
 data class Services (
-    val id: String,
-    val description: String,
-    val price: String
+    @SerializedName("Id")val id: String,
+    @SerializedName("Description")val description: String,
+    @SerializedName("Price")val price: String
 )
