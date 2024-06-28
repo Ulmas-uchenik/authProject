@@ -9,11 +9,11 @@ import com.example.myapplication.data.models.IsAuthorise
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel(
+class AuthViewModel @Inject constructor(
     private val repository: DoctorRepository
 )  : ViewModel() {
-    constructor() : this(DoctorRepository(RetrofitInstance()))
     private val _state = MutableStateFlow<AuthState>(AuthState.Success(false))
     val state = _state.asStateFlow()
 

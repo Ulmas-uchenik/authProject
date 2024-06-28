@@ -24,4 +24,6 @@
     <dimen name="tab_layout_back_button_height">40dp</dimen>
     <dimen name="tab_layout_back_button_width">40dp</dimen>
 
+<!--    doctor recycler view-->
+    <dimen name="doctor_image_photo_size">75dp</dimen>
 </resources>

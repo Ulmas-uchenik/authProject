@@ -1,6 +1,7 @@
 package com.example.myapplication.data.api
 
 import com.example.myapplication.data.models.CategoriesList
+import com.example.myapplication.data.models.DoctorList
 import com.example.myapplication.data.models.IsAuthorise
 import com.example.myapplication.data.models.ServicesList
 import okhttp3.OkHttpClient
@@ -52,5 +53,8 @@ interface IntentApiInterface {
         @Query("Key") key: String,
         @Query("Category") category: String
     ) : ServicesList
+
+    @GET(value = "?Func=Doctors")
+    suspend fun getAllDoctors(@Query("Key") key: String) : DoctorList
 }
 

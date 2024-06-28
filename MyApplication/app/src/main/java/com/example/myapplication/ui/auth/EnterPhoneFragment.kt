@@ -20,11 +20,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-
+import javax.inject.Inject
+@AndroidEntryPoint
 class EnterPhoneFragment : Fragment() {
-    private val viewModel: AuthViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModelFactory: AuthViewModelFactory
+    private val viewModel: AuthViewModel by activityViewModels {viewModelFactory}
 
     // Инициализация callback
     private lateinit var mCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks

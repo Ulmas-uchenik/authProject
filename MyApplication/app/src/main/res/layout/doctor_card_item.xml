@@ -1,12 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/margin_upper_little"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/margin_medium">
 
-<!--    <androidx.appcompat.widget.AppCompatImageView-->
-<!--        android:layout_width="100dp"-->
-<!--        android:layout_height="100dp"-->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/doctor_image_view"
+        android:layout_width="@dimen/doctor_image_photo_size"
+        android:layout_height="@dimen/doctor_image_photo_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/Corner"
+        tools:src="@color/blue_text_button" />
+
+    <TextView
+        android:id="@+id/fio_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/little_black"
+        android:textSize="@dimen/text_upper_little"
+        android:layout_marginStart="@dimen/margin_upper_little"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/doctor_image_view"
+        app:layout_constraintTop_toTopOf="@id/doctor_image_view"
+        tools:text="Александрова Александра Александровна" />
+
+    <TextView
+        android:id="@+id/major_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_little"
+        android:textColorHighlight="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/fio_text_view"
+        app:layout_constraintStart_toStartOf="@id/fio_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Гениколог" />
+
+    <View
+        android:id="@+id/bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/doctor_image_view"
+        />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

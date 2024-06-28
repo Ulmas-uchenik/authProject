@@ -18,13 +18,17 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentEnterCodeBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.PhoneAuthProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.log
 
+@AndroidEntryPoint
 class EnterCodeFragment : Fragment() {
-
-    private val viewModel: AuthViewModel by activityViewModels()
+    @Inject
+    lateinit var viewModelFactory: AuthViewModelFactory
+    private val viewModel: AuthViewModel by activityViewModels {viewModelFactory}
 
     private var _binding: FragmentEnterCodeBinding? = null
     private val binding get() = _binding!!
