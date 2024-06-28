@@ -23,16 +23,13 @@ class AuthViewModel @Inject constructor(
     private val _userWithPhonePassword = MutableStateFlow<UserWithNumberPassword>(
         UserWithNumberPassword("",""))
 
-    fun getKey(context: Context): String? {
-        return repository.getKey(context)
-    }
-    fun authorise(context: Context){
+    fun authorise(){
         viewModelScope.launch {
             _state.value = AuthState.Loading
             val isAuth: IsAuthorise
             try {
                 isAuth = repository.authorise(_userWithPhonePassword.value.phone, _userWithPhonePassword.value.password)
-                repository.putKeySid(context, isAuth.sid)
+                repository.putKeySid(isAuth.sid)
                 _state.value = AuthState.Success(isAuth.sid.isNotEmpty())
             } catch (t: Throwable) {
                 _state.value = AuthState.Error(t.message.toString())

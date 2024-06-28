@@ -94,7 +94,7 @@ class EnterCodeFragment : Fragment() {
                 Log.d(AuthViewModel.AUTH_TAG, "Выполняем вход в аккаунт")
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                         viewModel.authorise(context)
+                         viewModel.authorise()
 //                        Toast.makeText(context, "добро пожаловать ", Toast.LENGTH_SHORT).show()
 //                        Log.d(AuthViewModel.AUTH_TAG, "Вход в акканут произошел успешно")
 //                        startActivity(Intent(context, MainActivity::class.java))

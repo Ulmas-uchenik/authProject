@@ -39,7 +39,7 @@ class AppointmentSecondStepFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getServices(viewModel.isAdultBranch.value, viewModel.chosenCategory.value[0], binding.cardDoctorServices.context)
+        viewModel.getServices(viewModel.isAdultBranch.value, viewModel.chosenCategory.value[0])
         binding.doctor.text = viewModel.chosenCategory.value[1]
         val adapter = DoctorServicesListAdapter()
         binding.recyclerView.adapter = adapter

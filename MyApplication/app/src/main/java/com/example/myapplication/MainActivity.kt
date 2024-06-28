@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         authorizedUser()
 
         binding.exitFromAccount.setOnClickListener {
-            repository.exitFromAccount(this)
+            repository.exitFromAccount()
             AUTH.signOut()
-            isAuthorise(this)
+            isAuthorise()
             this.finish()
         }
 
@@ -59,8 +59,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun isAuthorise(context: Context) {
-        if (repository.getKey(this) == null) {
+    private fun isAuthorise() {
+        if (repository.getKey() == null) {
             startActivity(Intent(this, AuthActivity::class.java))
             this.finish()
         }

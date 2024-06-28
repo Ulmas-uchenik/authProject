@@ -24,11 +24,11 @@ import kotlin.random.Random
 private const val PREFERENCE_NAME = "PreferenceDoctor"
 private const val SHARED_PREFS_KEY = "shared_key"
 class DoctorRepository @Inject constructor(
-    @ActivityContext private val contextA: Context,
+    @ActivityContext private val context: Context,
     private val retrofitInstance: RetrofitInstance
 ){
     @SuppressLint("CommitPrefEdits")
-    fun putKeySid(context: Context, key: String) {
+    fun putKeySid(key: String) {
         val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(SHARED_PREFS_KEY, key)
@@ -36,13 +36,13 @@ class DoctorRepository @Inject constructor(
     }
 
     @SuppressLint("CommitPrefEdits")
-    fun exitFromAccount(context: Context) {
+    fun exitFromAccount() {
         val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(SHARED_PREFS_KEY, null)
         editor.apply()
     }
-    fun getKey(context: Context): String? {
+    fun getKey(): String? {
         val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         return prefs.getString(SHARED_PREFS_KEY, null)
     }
@@ -55,13 +55,13 @@ class DoctorRepository @Inject constructor(
         println(secret)
         return retrofitInstance.getApiInterface.authorize("$phone", secret, password)
     }
-    suspend fun getAllCategories(context: Context): CategoriesList {
-        val key = getKey(context)
+    suspend fun getAllCategories(): CategoriesList {
+        val key = getKey()
         return retrofitInstance.getApiInterface.getAllCategories(key!!)
     }
 
-    suspend fun getListOfServices(context: Context, category: String): ServicesList{
-        val key = getKey(context)
+    suspend fun getListOfService(category: String): ServicesList{
+        val key = getKey()
         return retrofitInstance.getApiInterface.getServices(key!!, category)
     }
 
@@ -69,8 +69,8 @@ class DoctorRepository @Inject constructor(
         return "Я могу говрить много о профессии доктора, но сдержусь парочкой не приятных слов. Эта профессия включаем в себя множество жизненно важных решений от которых завсит жизнь людей. Лишь одно не правльное движение или решение доктора может убить человека или спасти ему жизнь. Поэтоу это очень поасная работа Я могу говрить много о профессии доктора, но сдержусь парочкой не приятных слов. Эта профессия включаем в себя множество жизненно важных решений от которых завсит жизнь людей. Лишь одно не правльное движение или решение доктора может убить человека или спасти ему жизнь. Поэтоу это очень поасная работа Я могу говрить много о профессии доктора, но сдержусь парочкой не приятных слов. Эта профессия включаем в себя множество жизненно важных решений от которых завсит жизнь людей. Лишь одно не правльное движение или решение доктора может убить человека или спасти ему жизнь. Поэтоу это очень поасная работа Я могу говрить много о профессии доктора, но сдержусь парочкой не приятных слов. Эта профессия включаем в себя множество жизненно важных решений от которых завсит жизнь людей. Лишь одно не правльное движение или решение доктора может убить человека или спасти ему жизнь. Поэтоу это очень поасная работа Я могу говрить много о профессии доктора, но сдержусь парочкой не приятных слов. Эта профессия включаем в себя множество жизненно важных решений от которых завсит жизнь людей. Лишь одно не правльное движение или решение доктора может убить человека или спасти ему жизнь. Поэтоу это очень поасная работа "
     }
 
-    suspend fun getAllDoctors(context: Context): DoctorList{
-        val key = getKey(context)
+    suspend fun getAllDoctors(): DoctorList{
+        val key = getKey()
         return retrofitInstance.getApiInterface.getAllDoctors(key!!)
     }
 }

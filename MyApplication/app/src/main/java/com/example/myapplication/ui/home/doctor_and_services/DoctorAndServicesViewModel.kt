@@ -32,7 +32,7 @@ class DoctorAndServicesViewModel @Inject constructor(
             _state.value = AppointmentState.Loading
             try {
                 _isAdultBranch.value = isAdult
-                val categoryList = repository.getAllCategories(context)
+                val categoryList = repository.getAllCategories()
                 _state.value = AppointmentState.Success(categoryList.categories)
             } catch (t: Throwable) {
                 _state.value = AppointmentState.Error(t)

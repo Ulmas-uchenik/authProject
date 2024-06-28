@@ -27,12 +27,12 @@ class AppointmentViewModel @Inject constructor(
     val step2State = _step2State.asStateFlow()
 
 
-    fun changeBranchAndGetDoctors(isAdult: Boolean, context: Context) {
+    fun changeBranchAndGetDoctors(isAdult: Boolean) {
         viewModelScope.launch {
             _state.value = AppointmentState.Loading
             try {
                 _isAdultBranch.value = isAdult
-                val categoryList = repository.getAllCategories(context)
+                val categoryList = repository.getAllCategories()
                 _state.value = AppointmentState.Success(categoryList.categories)
             } catch (t: Throwable) {
                 _state.value = AppointmentState.Error(t)
@@ -44,11 +44,11 @@ class AppointmentViewModel @Inject constructor(
         _chosenCategory.value = listOf(category, name)
     }
 
-    fun getServices(isAdultBranch: Boolean, category: String, context: Context) {
+    fun getServices(isAdultBranch: Boolean, category: String) {
         viewModelScope.launch {
             _step2State.value = Step2State.Loading
             try {
-                val doctorServicesList = repository.getListOfServices(context, category)
+                val doctorServicesList = repository.getListOfService(category)
                 _step2State.value = Step2State.Success(doctorServicesList.services)
             } catch (t: Throwable) {
                 _step2State.value = Step2State.Error(t)

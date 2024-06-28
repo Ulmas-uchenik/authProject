@@ -50,7 +50,7 @@ class AppointmentFragment : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_adult))
         tabLayout.addTab(tabLayout.newTab().setText(R.string.branch_kids))
 
-        viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
+        viewModel.changeBranchAndGetDoctors(true)
 
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
@@ -59,10 +59,10 @@ class AppointmentFragment : Fragment() {
 
                     when(tab.position){
                         0 -> {
-                            viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
+                            viewModel.changeBranchAndGetDoctors(true)
                         }
                         1-> {
-                            viewModel.changeBranchAndGetDoctors(false, binding.cardDoctorServices.context)
+                            viewModel.changeBranchAndGetDoctors(false)
                         }
                     }
                 }
