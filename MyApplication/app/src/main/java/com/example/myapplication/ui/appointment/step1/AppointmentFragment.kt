@@ -97,7 +97,7 @@ class AppointmentFragment : Fragment() {
                         binding.recyclerView.isVisible = false
                     }
                     is AppointmentState.Error -> {
-                        Log.d("Data", state.e.message.toString())
+                        Log.d("Data", state.t.message.toString())
                         Snackbar.make(binding.recyclerView, "Произошла ошибка, не удалось сменить отделение", Snackbar.LENGTH_LONG)
                             .setBackgroundTint(Color.parseColor("#FFD85959"))
                             .show()

@@ -7,21 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDoctorAndServicesBinding
 import com.example.myapplication.ui.appointment.AppointmentState
-import com.example.myapplication.ui.appointment.AppointmentViewModel
-import com.example.myapplication.ui.appointment.AppointmentViewModelFactory
 import com.example.myapplication.ui.appointment.step1.DoctorListAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -52,8 +46,10 @@ class DoctorAndServicesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name) }
-        binding.recyclerView.adapter = adapter
+        val servicesAdapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name) }
+        val doctorAdapter = DoctorCardAdapter()
+        binding.recyclerView.adapter = servicesAdapter
+
 
         tabLayout = binding.tabLayout
         viewPager2 = binding.viewPager2
@@ -87,8 +83,12 @@ class DoctorAndServicesFragment : Fragment() {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
                     when(tab.position){
-                        0 -> {}
-                        1-> {}
+                        0 -> {
+                            binding.recyclerView.adapter = servicesAdapter
+                        }
+                        1-> {
+                            binding.recyclerView.adapter = doctorAdapter
+                        }
                     }
                 }
 
@@ -118,13 +118,13 @@ class DoctorAndServicesFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
-                    is AppointmentState.Loading -> {
+                    is DoctorAndServicesState.Loading -> {
                         binding.progressBar.isVisible = true
                         binding.recyclerView.isVisible = false
                     }
 
-                    is AppointmentState.Error -> {
-                        Log.d("Data", state.e.message.toString())
+                    is DoctorAndServicesState.Error -> {
+                        Log.d("Data", state.error)
                         Snackbar.make(
                             binding.recyclerView,
                             "Произошла ошибка, не удалось сменить отделение",
@@ -136,8 +136,9 @@ class DoctorAndServicesFragment : Fragment() {
                         binding.recyclerView.isVisible = true
                     }
 
-                    is AppointmentState.Success -> {
-                        adapter.setData(state.allDoctorsList)
+                    is DoctorAndServicesState.Success -> {
+                        servicesAdapter.setData(state.categoryList)
+                        doctorAdapter.setData(state.doctorCardList)
                         binding.progressBar.isVisible = false
                         binding.recyclerView.isVisible = true
                     }

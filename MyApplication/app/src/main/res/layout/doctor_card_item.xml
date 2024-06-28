@@ -8,11 +8,13 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/doctor_image_view"
-        android:layout_width="@dimen/doctor_image_photo_size"
+        android:layout_width="0dp"
         android:layout_height="@dimen/doctor_image_photo_size"
+        app:layout_constraintDimensionRatio="3:4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
         app:shapeAppearanceOverlay="@style/Corner"
         tools:src="@color/blue_text_button" />
 
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/little_black"
         android:textSize="@dimen/text_upper_little"
-        android:layout_marginStart="@dimen/margin_upper_little"
+        android:layout_marginStart="@dimen/margin_medium"
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/doctor_image_view"
@@ -41,13 +43,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Гениколог" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="doctor_image_view, major_text_view"
+        app:barrierDirection="bottom"
+        />
+
     <View
         android:id="@+id/bottom_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_medium"
         android:background="@color/gray"
-        app:layout_constraintTop_toBottomOf="@id/doctor_image_view"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
         />
 
 
