@@ -26,4 +26,6 @@
 
 <!--    doctor recycler view-->
     <dimen name="doctor_image_photo_size">75dp</dimen>
+
+    <dimen name="doctor_info_image_photo_size">180dp</dimen>
 </resources>

@@ -15,8 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentDoctorAndServicesBinding
-import com.example.myapplication.ui.appointment.AppointmentState
-import com.example.myapplication.ui.appointment.step1.DoctorListAdapter
+import com.example.myapplication.ui.appointment.step1.CategoriesListAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -46,8 +45,8 @@ class DoctorAndServicesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val servicesAdapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name) }
-        val doctorAdapter = DoctorCardAdapter()
+        val servicesAdapter = CategoriesListAdapter { service, name -> onServiceClick(service, name) }
+        val doctorAdapter = DoctorAdapter { id -> onDoctorClick(id) }
         binding.recyclerView.adapter = servicesAdapter
 
 
@@ -147,9 +146,14 @@ class DoctorAndServicesFragment : Fragment() {
         }
     }
 
-    private fun onDoctorClick(doctor: String, name: String) {
-        viewModel.chooseDoctor(doctor, name)
+    private fun onServiceClick(service: String, name: String) {
+        viewModel.chooseService(service, name)
         findNavController().navigate(R.id.action_doctorAndServicesFragment_to_servicesFragment)
+    }
+
+    private fun onDoctorClick(id: String){
+        viewModel.chooseDoctor(id)
+        findNavController().navigate(R.id.action_doctorAndServicesFragment_to_doctorCardFragment)
     }
 
     override fun onDestroy() {

@@ -1,8 +1,6 @@
 package com.example.myapplication.ui.home.services
 
-import android.graphics.drawable.Drawable
-
-data class ServiceForRecyclerView (
+data class ServicesForRecyclerView (
     val title: String,
     val img: Int
 )

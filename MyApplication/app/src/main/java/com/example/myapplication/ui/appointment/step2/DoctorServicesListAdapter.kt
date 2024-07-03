@@ -7,9 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.data.DoctorServices
 import com.example.myapplication.data.models.Services
-import com.example.myapplication.databinding.DoctorServicesItemBinding
+import com.example.myapplication.databinding.ItemDoctorServicesBinding
 
 class DoctorServicesListAdapter(
 //    private val onClick: (String) -> Unit
@@ -22,7 +21,7 @@ class DoctorServicesListAdapter(
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorServicesListViewHolder {
-        val binding = DoctorServicesItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = ItemDoctorServicesBinding.inflate(LayoutInflater.from(parent.context))
         return DoctorServicesListViewHolder(binding)
     }
 
@@ -47,4 +46,4 @@ class DoctorServicesListAdapter(
     override fun getItemCount(): Int = values.size
 }
 
-class DoctorServicesListViewHolder(val binding: DoctorServicesItemBinding) : RecyclerView.ViewHolder(binding.root)
+class DoctorServicesListViewHolder(val binding: ItemDoctorServicesBinding) : RecyclerView.ViewHolder(binding.root)

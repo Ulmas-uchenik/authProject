@@ -1,18 +1,18 @@
 package com.example.myapplication.ui.home.doctor_and_services
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Doctor
-import com.example.myapplication.databinding.DoctorCardItemBinding
+import com.example.myapplication.databinding.ItemDoctorBinding
 
-class DoctorCardAdapter : RecyclerView.Adapter<DoctorCardViewHolder>() {
+class DoctorAdapter (
+    private val onDoctorClick: (String) -> Unit
+) : RecyclerView.Adapter<DoctorViewHolder>() {
     private var values = emptyList<Doctor>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -21,12 +21,12 @@ class DoctorCardAdapter : RecyclerView.Adapter<DoctorCardViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorCardViewHolder {
-        val binding = DoctorCardItemBinding.inflate(LayoutInflater.from(parent.context))
-        return DoctorCardViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorViewHolder {
+        val binding = ItemDoctorBinding.inflate(LayoutInflater.from(parent.context))
+        return DoctorViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DoctorCardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DoctorViewHolder, position: Int) {
         val item = values[position]
         with(holder.binding) {
             fioTextView.text = item.fio
@@ -40,10 +40,14 @@ class DoctorCardAdapter : RecyclerView.Adapter<DoctorCardViewHolder>() {
             Glide.with(holder.binding.doctorImageView.context)
                 .load(item.photo)
                 .into(holder.binding.doctorImageView)
+
+        holder.binding.root.setOnClickListener {
+            onDoctorClick(values[position].id)
+        }
     }
 
     override fun getItemCount(): Int = values.size
 }
 
-class DoctorCardViewHolder(val binding: DoctorCardItemBinding) :
+class DoctorViewHolder(val binding: ItemDoctorBinding) :
     RecyclerView.ViewHolder(binding.root)

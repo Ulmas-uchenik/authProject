@@ -1,11 +1,13 @@
 package com.example.myapplication.ui.home.doctor_and_services
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.data.models.Doctor
-import com.example.myapplication.ui.appointment.AppointmentState
+import com.example.myapplication.data.models.DoctorInfo
+import com.example.myapplication.ui.home.doctor.DoctorState
 import com.example.myapplication.ui.home.services.ServiceState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,8 +27,12 @@ class DoctorAndServicesViewModel @Inject constructor(
     val chosenCategory = _chosenCategory.asStateFlow()
 
     // Service Fragment
-    private val _stateService = MutableStateFlow<ServiceState>(ServiceState.Success("Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение"))
+    private val _stateService =
+        MutableStateFlow<ServiceState>(ServiceState.Success("Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение"))
     val stateService = _stateService.asStateFlow()
+
+    private val _doctorState = MutableStateFlow<DoctorState>(DoctorState.Loading)
+    val doctorState = _doctorState.asStateFlow()
 
     fun changeBranchAndGetDoctors(isAdult: Boolean, context: Context) {
         viewModelScope.launch {
@@ -43,22 +49,35 @@ class DoctorAndServicesViewModel @Inject constructor(
         }
     }
 
-    private fun ageGroupFilter(doctorList: List<Doctor>): List<Doctor>{
+    private fun ageGroupFilter(doctorList: List<Doctor>): List<Doctor> {
         val newDoctorList = mutableListOf<Doctor>()
         doctorList.forEach {
-            if(isAdultBranch.value){
-                if(it.ageGroup == "adult")
+            if (isAdultBranch.value) {
+                if (it.ageGroup == "adult")
                     newDoctorList.add(it)
             } else {
-                if(it.ageGroup == "child")
+                if (it.ageGroup == "child")
                     newDoctorList.add(it)
             }
         }
         return newDoctorList
     }
 
-    fun chooseDoctor(category: String, name: String) {
+    fun chooseService(category: String, name: String) {
         _chosenCategory.value = listOf(category, name)
+    }
+
+    fun chooseDoctor(id: String) {
+        viewModelScope.launch {
+            _doctorState.value = DoctorState.Loading
+            try {
+                val doctorInfo = repository.getDoctorInfo(id)
+                _doctorState.value = DoctorState.Success(doctorInfo)
+            } catch (t: Throwable) {
+                _doctorState.value = DoctorState.Error(t.message.toString())
+                Log.d("yes", t.message.toString())
+            }
+        }
     }
 
     fun getAppearanceCategory(category: String) {
@@ -67,10 +86,9 @@ class DoctorAndServicesViewModel @Inject constructor(
             try {
                 val appearanceCategory = repository.getAppearanceCategory()
                 _stateService.value = ServiceState.Success(appearanceCategory)
-            } catch (t: Throwable){
+            } catch (t: Throwable) {
                 _stateService.value = ServiceState.Error(t.message.toString())
             }
         }
     }
-
 }

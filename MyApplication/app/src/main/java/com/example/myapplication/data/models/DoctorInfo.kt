@@ -2,7 +2,7 @@ package com.example.myapplication.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Doctor(
+data class DoctorInfo (
     @SerializedName("Id") val id: String,
     @SerializedName("Fio") val fio: String,
     @SerializedName("AgeGroup") val ageGroup: String,
@@ -13,10 +13,5 @@ data class Doctor(
     @SerializedName("Ucard") val ucard: String,
     @SerializedName("Description") val description: String,
     @SerializedName("Photo") val photo: String,
-    @SerializedName("Sertificats") val sertificats: List<Sertificats>
-)
-
-data class Sertificats(
-    @SerializedName("Id") val id: String,
-    @SerializedName("Text") val test: String
+    @SerializedName("Status") val status: String
 )

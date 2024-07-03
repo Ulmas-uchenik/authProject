@@ -62,7 +62,7 @@
               app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
               android:orientation="vertical"
               tools:itemCount="2"
-              tools:listitem="@layout/service_item"
+              tools:listitem="@layout/item_services"
               />
       </androidx.cardview.widget.CardView>
 

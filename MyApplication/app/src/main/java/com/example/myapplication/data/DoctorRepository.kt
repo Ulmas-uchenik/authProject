@@ -10,6 +10,7 @@ import com.example.myapplication.App
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.data.bd.UserDao
 import com.example.myapplication.data.models.CategoriesList
+import com.example.myapplication.data.models.DoctorInfo
 import com.example.myapplication.data.models.DoctorList
 import com.example.myapplication.data.models.IsAuthorise
 import com.example.myapplication.data.models.ServicesList
@@ -18,6 +19,7 @@ import kotlinx.coroutines.delay
 import java.math.BigInteger
 import java.security.MessageDigest
 import javax.inject.Inject
+import kotlin.coroutines.coroutineContext
 import kotlin.random.Random
 
 
@@ -73,6 +75,11 @@ class DoctorRepository @Inject constructor(
         val key = getKey()
         return retrofitInstance.getApiInterface.getAllDoctors(key!!)
     }
+
+    suspend fun getDoctorInfo(id: String) : DoctorInfo {
+        val key = getKey()
+        return retrofitInstance.getApiInterface.getDoctor(id = id, key = key!!)
+    }
 }
 
 fun md5Hash(str: String): String {
@@ -82,8 +89,9 @@ fun md5Hash(str: String): String {
 }
 
 suspend fun main() {
-//    val retrofitInstance = RetrofitInstance()
-//    val repository = DoctorRepository(retrofitInstance)
+    val retrofitInstance = RetrofitInstance()
+
+
 //    println(md5Hash(" 79520229480qwerty"))
 //
 //    val isAuth = repository.authorise("79520229480", "123")

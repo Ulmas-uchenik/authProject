@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_doctorAndServicesFragment_to_servicesFragment"
             app:destination="@id/servicesFragment" />
+        <action
+            android:id="@+id/action_doctorAndServicesFragment_to_doctorCardFragment"
+            app:destination="@id/doctorCardFragment" />
     </fragment>
     <fragment
         android:id="@+id/servicesFragment"
@@ -66,5 +69,16 @@
             app:destination="@id/doctorAndServicesFragment"
             app:popUpTo="@id/doctorAndServicesFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorCardFragment"
+        android:name="com.example.myapplication.ui.home.doctor.DoctorCardFragment"
+        android:label="fragment_doctor_card"
+        tools:layout="@layout/fragment_doctor_card" >
+        <action
+            android:id="@+id/action_doctorCardFragment_to_doctorAndServicesFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/doctorAndServicesFragment"
+            app:destination="@id/doctorAndServicesFragment" />
     </fragment>
 </navigation>

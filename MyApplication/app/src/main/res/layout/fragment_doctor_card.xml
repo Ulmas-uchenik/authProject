@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.home.doctor.DoctorCardFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        style="@style/tab_layout">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/back_button_toolbar"
+            style="@style/tab_layout_back_button" />
+
+        <TextView
+            style="@style/tab_layout_title_text"
+            android:text="@string/services" />
+
+    </Toolbar>
+
+    <View style="@style/tab_layout_bottom_line" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_medium">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/doctor_image_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/doctor_info_image_photo_size"
+            android:scaleType="centerCrop"
+            tools:src="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="3:4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/Corner"
+            />
+
+        <TextView
+            android:id="@+id/fio_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:textColor="@color/little_black"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/doctor_image_view"
+            app:layout_constraintTop_toTopOf="@id/doctor_image_view"
+            tools:text="Александрова Александра Александровна"
+            />
+
+        <TextView
+            android:id="@+id/major_text_view"
+            android:layout_width="0dp"
+            tools:text="Гениколог"
+            android:textSize="@dimen/text_little"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fio_text_view"
+            app:layout_constraintStart_toStartOf="@id/fio_text_view"
+            app:layout_constraintEnd_toEndOf="parent
+"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/diplom_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        tools:text="2570472 ФГОУВПО Чувашский государственный университет имени И.Н. Ульянова от 01.07.2009 г."
+        android:textSize="@dimen/text_upper_little"
+        />
+
+    <TextView
+        android:id="@+id/accreditation_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium"
+        tools:text="2570472 ФГОУВПО Чувашский государственный университет имени И.Н. Ульянова от 01.07.2009 г."
+        android:textSize="@dimen/text_upper_little"
+        />
+
+
+</LinearLayout>

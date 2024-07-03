@@ -43,11 +43,11 @@ class ServicesFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         adapter.setData(
             listOf(
-                ServiceForRecyclerView(
+                ServicesForRecyclerView(
                     title = "Врачи",
                     img = R.drawable.person_24px
                 ),
-                ServiceForRecyclerView(
+                ServicesForRecyclerView(
                     title = "Услуги и цены",
                     img = R.drawable.stethoscope_24px
                 )

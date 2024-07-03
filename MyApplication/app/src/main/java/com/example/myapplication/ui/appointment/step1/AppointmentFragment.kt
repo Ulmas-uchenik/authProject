@@ -42,7 +42,7 @@ class AppointmentFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = DoctorListAdapter { doctor, name -> onDoctorClick(doctor, name)}
+        val adapter = CategoriesListAdapter { doctor, name -> onDoctorClick(doctor, name)}
         binding.recyclerView.adapter = adapter
         tabLayout = binding.tabLayout
         viewPager2 = binding.viewPager2

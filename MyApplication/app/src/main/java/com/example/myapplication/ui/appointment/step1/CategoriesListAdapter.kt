@@ -3,17 +3,15 @@ package com.example.myapplication.ui.appointment.step1
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Categories
-import com.example.myapplication.data.models.CategoriesList
-import com.example.myapplication.databinding.DoctorsItemBinding
+import com.example.myapplication.databinding.ItemCategoriesBinding
 
-class DoctorListAdapter(
+class CategoriesListAdapter(
     private val onClick: (String, String) -> Unit
-): RecyclerView.Adapter<DoctorListViewHolder>() {
+): RecyclerView.Adapter<CategoriesListViewHolder>() {
     private var values = emptyList<Categories>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -21,12 +19,12 @@ class DoctorListAdapter(
         values = doctorList
         notifyDataSetChanged()
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoctorListViewHolder {
-        val binding = DoctorsItemBinding.inflate(LayoutInflater.from(parent.context))
-        return DoctorListViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesListViewHolder {
+        val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context))
+        return CategoriesListViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: DoctorListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoriesListViewHolder, position: Int) {
         val item = values[position].name
         with(holder.binding) {
             doctorTextView.text = item
@@ -44,4 +42,4 @@ class DoctorListAdapter(
     override fun getItemCount(): Int = values.size
 }
 
-class DoctorListViewHolder(val binding: DoctorsItemBinding) : RecyclerView.ViewHolder(binding.root)
+class CategoriesListViewHolder(val binding: ItemCategoriesBinding) : RecyclerView.ViewHolder(binding.root)

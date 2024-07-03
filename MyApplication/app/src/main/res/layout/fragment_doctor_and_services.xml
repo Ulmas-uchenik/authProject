@@ -72,7 +72,7 @@
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="8"
-                    tools:listitem="@layout/doctor_card_item" />
+                    tools:listitem="@layout/item_doctor" />
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progress_bar"

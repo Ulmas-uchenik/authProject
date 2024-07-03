@@ -1,6 +1,7 @@
 package com.example.myapplication.data.api
 
 import com.example.myapplication.data.models.CategoriesList
+import com.example.myapplication.data.models.DoctorInfo
 import com.example.myapplication.data.models.DoctorList
 import com.example.myapplication.data.models.IsAuthorise
 import com.example.myapplication.data.models.ServicesList
@@ -56,5 +57,11 @@ interface IntentApiInterface {
 
     @GET(value = "?Func=Doctors")
     suspend fun getAllDoctors(@Query("Key") key: String) : DoctorList
+
+    @GET(value ="?Func=Doctor")
+    suspend fun getDoctor(
+        @Query("Id") id: String,
+        @Query("Key") key: String
+    ) : DoctorInfo
 }
 
