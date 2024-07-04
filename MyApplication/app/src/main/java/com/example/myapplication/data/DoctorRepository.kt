@@ -44,6 +44,7 @@ class DoctorRepository @Inject constructor(
         editor.putString(SHARED_PREFS_KEY, null)
         editor.apply()
     }
+
     fun getKey(): String? {
         val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
         return prefs.getString(SHARED_PREFS_KEY, null)

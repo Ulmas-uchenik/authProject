@@ -1,11 +1,7 @@
 package com.example.myapplication
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
@@ -14,10 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.databinding.ActivityMainBinding
-import com.example.myapplication.ui.auth.AUTH
 import com.example.myapplication.ui.auth.AuthActivity
-import com.example.myapplication.ui.auth.AuthViewModel
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,11 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        authorizedUser()
+
+        isAuthorise()
 
         binding.exitFromAccount.setOnClickListener {
             repository.exitFromAccount()
-            AUTH.signOut()
             isAuthorise()
             this.finish()
         }
@@ -61,20 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun isAuthorise() {
         if (repository.getKey() == null) {
-            startActivity(Intent(this, AuthActivity::class.java))
-            this.finish()
-        }
-    }
-
-    private fun authorizedUser() {
-        Log.d(AuthViewModel.AUTH_TAG, "Берем пользователя")
-        AUTH = FirebaseAuth.getInstance()
-        if (AUTH.currentUser != null) {
-            Log.d(AuthViewModel.AUTH_TAG, "Пользователь заригистрирован")
-            Toast.makeText(this, "Вы зарегистрированны", Toast.LENGTH_SHORT).show()
-        } else {
-            Log.d(AuthViewModel.AUTH_TAG, "Начала процесса регистрации")
-            Toast.makeText(this, "Выполните регистрацию пожалуйста", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, AuthActivity::class.java))
             this.finish()
         }

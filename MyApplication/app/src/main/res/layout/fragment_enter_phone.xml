@@ -38,33 +38,15 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/put_your_phone_number"
                 android:inputType="number"
-                android:maxLength="11"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_name"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/margin_mini_medium"
-
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_name"
-                android:inputType="text"
-                android:maxLength="11"
-                android:singleLine="true" />
+                android:maxLength="11" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_edit_pass"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/margin_mini_medium"
-
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_mini_medium">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_pass"
@@ -76,47 +58,42 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_conform_pass"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/margin_mini_medium"
 
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/change_on_sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            android:background="@color/empty"
+            android:text="@string/sign_in_with_password"
+            android:textColor="@color/blue_text_button" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_conform_pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/conform_pass"
-                android:inputType="textPassword"
-                android:maxLength="20"
-                android:singleLine="true" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/change_on_register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            android:background="@color/empty"
+            android:text="@string/register"
+            android:visibility="gone"
+            android:textColor="@color/blue_text_button" />
 
-<!--        <Button-->
-<!--            android:id="@+id/change_on_sign_in_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:background="@color/empty"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/sign_in"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:textColor="@color/blue_text_button"-->
-<!--            android:layout_marginTop="@dimen/margin_upper_little"-->
+        <!--            />-->
 
-<!--            />-->
+        <!--        <Button-->
+        <!--            android:id="@+id/change_on_register_button"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/register"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:layout_gravity="center"-->
+        <!--            android:background="@color/empty"-->
+        <!--            android:textColor="@color/blue_text_button"-->
+        <!--            android:layout_marginTop="@dimen/margin_upper_little"-->
 
-<!--        <Button-->
-<!--            android:id="@+id/change_on_register_button"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/register"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:background="@color/empty"-->
-<!--            android:textColor="@color/blue_text_button"-->
-<!--            android:layout_marginTop="@dimen/margin_upper_little"-->
-
-<!--            />-->
+        <!--            />-->
     </LinearLayout>
 
     <Button
@@ -125,23 +102,35 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"
         android:text="@string/auth"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/skip_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/sign_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="11dp"
+        android:text="@string/sign_in"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/skip_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    <!--    <Button-->
-<!--        android:id="@+id/sign_in_button"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="11dp"-->
-<!--        android:text="@string/sign_in"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="11dp"
+            android:text="пропустить"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
