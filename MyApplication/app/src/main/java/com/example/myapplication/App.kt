@@ -20,5 +20,4 @@ class App : Application() {
             .fallbackToDestructiveMigration()
             .build()
     }
-
 }
