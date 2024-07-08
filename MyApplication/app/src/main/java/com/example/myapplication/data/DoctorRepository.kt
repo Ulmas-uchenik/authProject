@@ -1,53 +1,35 @@
 package com.example.myapplication.data
 
 import android.annotation.SuppressLint
-import android.app.Service
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import android.util.Log
-import com.example.myapplication.App
 import com.example.myapplication.data.api.RetrofitInstance
-import com.example.myapplication.data.bd.UserDao
 import com.example.myapplication.data.models.CategoriesList
 import com.example.myapplication.data.models.DoctorInfo
 import com.example.myapplication.data.models.DoctorList
 import com.example.myapplication.data.models.IsAuthorise
 import com.example.myapplication.data.models.ServicesList
 import dagger.hilt.android.qualifiers.ActivityContext
-import kotlinx.coroutines.delay
 import java.math.BigInteger
 import java.security.MessageDigest
 import javax.inject.Inject
-import kotlin.coroutines.coroutineContext
-import kotlin.random.Random
 
-
-private const val PREFERENCE_NAME = "PreferenceDoctor"
-private const val SHARED_PREFS_KEY = "shared_key"
 class DoctorRepository @Inject constructor(
     @ActivityContext private val context: Context,
     private val retrofitInstance: RetrofitInstance
 ){
     @SuppressLint("CommitPrefEdits")
-    fun putKeySid(key: String) {
-        val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = prefs.edit()
-        editor.putString(SHARED_PREFS_KEY, key)
-        editor.apply()
-    }
-
-    @SuppressLint("CommitPrefEdits")
     fun exitFromAccount() {
-        val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
-        editor.putString(SHARED_PREFS_KEY, null)
+        editor.putString(Const.SHARED_PREFS_KEY, null)
         editor.apply()
     }
 
     fun getKey(): String? {
-        val prefs = context.getSharedPreferences(PREFERENCE_NAME, MODE_PRIVATE)
-        return prefs.getString(SHARED_PREFS_KEY, null)
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, MODE_PRIVATE)
+        return prefs.getString(Const.SHARED_PREFS_KEY, null)
     }
     suspend fun authorise(phone: String, password: String): IsAuthorise {
         val numberForSecret = phone/*.replaceFirst("", " ")*/
@@ -56,16 +38,16 @@ class DoctorRepository @Inject constructor(
         println(numberSecret)
         val secret = md5Hash(numberSecret)
         println(secret)
-        return retrofitInstance.getApiInterface.authorize("$phone", secret, password)
+        return retrofitInstance.infodentApiInterface.authorize("$phone", secret, password)
     }
     suspend fun getAllCategories(): CategoriesList {
         val key = getKey()
-        return retrofitInstance.getApiInterface.getAllCategories(key!!)
+        return retrofitInstance.infodentApiInterface.getAllCategories(key!!)
     }
 
     suspend fun getListOfService(category: String): ServicesList{
         val key = getKey()
-        return retrofitInstance.getApiInterface.getServices(key!!, category)
+        return retrofitInstance.infodentApiInterface.getServices(key!!, category)
     }
 
     suspend fun getAppearanceCategory(): String{
@@ -74,12 +56,12 @@ class DoctorRepository @Inject constructor(
 
     suspend fun getAllDoctors(): DoctorList{
         val key = getKey()
-        return retrofitInstance.getApiInterface.getAllDoctors(key!!)
+        return retrofitInstance.infodentApiInterface.getAllDoctors(key!!)
     }
 
     suspend fun getDoctorInfo(id: String) : DoctorInfo {
         val key = getKey()
-        return retrofitInstance.getApiInterface.getDoctor(id = id, key = key!!)
+        return retrofitInstance.infodentApiInterface.getDoctor(id = id, key = key!!)
     }
 }
 

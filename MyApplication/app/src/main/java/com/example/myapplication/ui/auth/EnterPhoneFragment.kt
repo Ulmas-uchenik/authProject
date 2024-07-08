@@ -7,22 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.myapplication.MainActivity
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentEnterPhoneBinding
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,27 +48,31 @@ class EnterPhoneFragment : Fragment() {
             viewModel.setRegisterState()
         }
 
+        binding.registerButton.setOnClickListener {
+            val telephoneNumber = binding.editTelephoneNumber.text
+            viewModel.register(binding.editTelephoneNumber.text.toString())
+            Log.d("yes", "Telephone - is ${binding.editTelephoneNumber.text.toString()}")
+        }
+
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
                 when (state) {
                     is AuthState.Success -> {
-//                        if (state.haveSid) {
-//                            startActivity(
-//                                Intent(
-//                                    binding.editText.context, MainActivity::class.java
-//                                )
-//                            )
-//                            AuthActivity().finish()
-//                        }
+                        startActivity(
+                            Intent(
+                                binding.editPass.context, MainActivity::class.java
+                            )
+                        )
+                        AuthActivity().finish()
                     }
 
                     is AuthState.Loading -> {
-                        Snackbar.make(binding.editText, "Загрузка", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(binding.editPass, "Загрузка", Snackbar.LENGTH_SHORT).show()
                     }
 
                     is AuthState.Error -> {
-                        Snackbar.make(binding.editText, state.message, Snackbar.LENGTH_LONG)
+                        Snackbar.make(binding.editPass , "Ошибка регистрации - ${state.message}", Snackbar.LENGTH_LONG)
                             .setBackgroundTint(Color.parseColor("#FFD85959")).show()
                     }
 
@@ -102,6 +99,10 @@ class EnterPhoneFragment : Fragment() {
                     }
                 }
             }
+        }
+        viewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
+            Snackbar.make(binding.editPass , "Ошибка регистрации - ${error}", Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.parseColor("#FFD85959")).show()
         }
     }
 }

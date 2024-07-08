@@ -13,27 +13,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import javax.inject.Inject
 
-// Версия два
-private val BASE_URL = "http://irtep.ru/stoma/index.php/"
-
-class RetrofitInstance @Inject constructor() {
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .client(
-            OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().also {
-                it.level = HttpLoggingInterceptor.Level.BODY
-            }).build()
-        )
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    val getApiInterface: IntentApiInterface = retrofit.create(
-        IntentApiInterface::class.java
-    )
-}
-
-
-interface IntentApiInterface {
+interface InfodentApiInterface {
     @GET(value = "activity")
     suspend fun getUsefulClass()
 
@@ -63,5 +43,13 @@ interface IntentApiInterface {
         @Query("Id") id: String,
         @Query("Key") key: String
     ) : DoctorInfo
+
+    @GET(value = "?Func=Register")
+    suspend fun register(
+        @Query("Uid") uid: String,
+        @Query("Secret") secret: String,
+        @Query("Login") login: String?,
+        @Query("Phone") phone: String?,
+    ) : IsAuthorise
 }
 

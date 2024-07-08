@@ -33,12 +33,12 @@
             app:prefixText="+7 ">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text"
+                android:id="@+id/edit_telephone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/put_your_phone_number"
                 android:inputType="number"
-                android:maxLength="11" />
+                android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

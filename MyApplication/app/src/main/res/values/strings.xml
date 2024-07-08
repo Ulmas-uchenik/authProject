@@ -14,6 +14,8 @@
     <string name="enter_user_name">Введите свое имя</string>
     <string name="continue_">Продолжить</string>
 
+    <string name="error_phone_number">Номер телефона введен не верно</string>
+
     <string name="auth_success">Вы успешно зарегистрировались поздравляю</string>
     <string name="sign_out_from_account">Выйти из аккаунта</string>
     <string name="put_auth_code">Введите код который регистрации</string>
