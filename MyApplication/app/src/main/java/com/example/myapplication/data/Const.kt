@@ -7,6 +7,7 @@ import kotlin.random.Random
 object Const {
     const val PREFERENCE_NAME = "PreferenceDoctor"
     const val SHARED_PREFS_KEY = "shared_key"
+    const val SHARED_PREFS_UID = "shared_uid"
 }
 
 fun main(){

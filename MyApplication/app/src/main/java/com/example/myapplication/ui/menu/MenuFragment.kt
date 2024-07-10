@@ -32,7 +32,6 @@ class MenuFragment : Fragment() {
                     R.id.notifications -> snack(it.title)
                     R.id.magazine_appointments -> snack(it.title)
                     R.id.personal_room -> snack(it.title)
-                    R.id.settings -> snack(it.title)
                 }
                 true
             }

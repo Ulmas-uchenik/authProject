@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -54,6 +55,10 @@ class EnterPhoneFragment : Fragment() {
             Log.d("yes", "Telephone - is ${binding.editTelephoneNumber.text.toString()}")
         }
 
+        binding.skipButton.setOnClickListener {
+            viewModel.registerSkip()
+        }
+
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
@@ -72,8 +77,11 @@ class EnterPhoneFragment : Fragment() {
                     }
 
                     is AuthState.Error -> {
-                        Snackbar.make(binding.editPass , "Ошибка регистрации - ${state.message}", Snackbar.LENGTH_LONG)
-                            .setBackgroundTint(Color.parseColor("#FFD85959")).show()
+                        if(viewModel.haveUid()) {
+                            viewModel.authByUid()
+                            Snackbar.make(binding.editPass, "Перезапустите прилоежние чтобы войти на главный экран (Код Костыль)", Snackbar.LENGTH_LONG)
+                                .show()
+                        }
                     }
 
                     is AuthState.SignIn -> {

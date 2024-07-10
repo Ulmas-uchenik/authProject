@@ -31,6 +31,9 @@ class DoctorAndServicesViewModel @Inject constructor(
         MutableStateFlow<ServiceState>(ServiceState.Success("Не получилось выполнить ваш запрос, пожалуйста перезагрузите ваше приложение"))
     val stateService = _stateService.asStateFlow()
 
+    private val _doctorAndServicesEnum = MutableStateFlow(DoctorAndServicesEnum.Services)
+    val doctorAndServicesEnum = _doctorAndServicesEnum.asStateFlow()
+
     private val _doctorState = MutableStateFlow<DoctorState>(DoctorState.Loading)
     val doctorState = _doctorState.asStateFlow()
 
@@ -91,4 +94,14 @@ class DoctorAndServicesViewModel @Inject constructor(
             }
         }
     }
+    fun changeDoctorAndServicesEnumState(doctorAndServicesEnum: DoctorAndServicesEnum){
+        _doctorAndServicesEnum.value = doctorAndServicesEnum
+    }
+}
+
+enum class DoctorAndServicesEnum(private val idTabLayoutButton: Int) {
+    Services(0),
+    Doctor(1);
+
+    fun getIdButton() = idTabLayoutButton
 }

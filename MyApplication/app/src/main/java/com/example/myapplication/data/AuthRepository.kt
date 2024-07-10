@@ -11,30 +11,57 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 class AuthRepository @Inject constructor(
-    @ActivityContext private val context: Context,
-    private val retrofitInstance: RetrofitInstance
+    @ActivityContext private val context: Context, private val retrofitInstance: RetrofitInstance
 ) {
-    suspend fun register(login: String?, phone: String?): IsAuthorise {
-        val uid = Random.nextInt(100000000, 1000000000).toString()
-        val secret = md5Hash("${uid}qwerty")
-        return retrofitInstance.authApiInterfacea.register(
-            uid = uid,
-            secret = secret,
-            login = login,
-            phone = phone
+    suspend fun register(uid: String, login: String? = null, phone: String? = null): IsAuthorise {
+        val secret = md5Hash(uid)
+        return retrofitInstance.authApiInterface.register(
+            uid = uid, secret = secret, login = login, phone = phone
         )
     }
 
-     fun putSid(sid: String){
+    suspend fun signInByUid(): IsAuthorise {
+        val uid = getUid()
+        val secret = md5Hash(uid!!)
+        return retrofitInstance.authApiInterface.authByUid(uid, secret)
+    }
+
+    suspend fun getSelfInfo() : IsAuthorise {
+        val sid = getKey()!!
+        return retrofitInstance.authApiInterface.getSelfInfo(sid)
+    }
+
+    suspend fun logout(){
+        val sid = getKey()!!
+        return retrofitInstance.authApiInterface.logout(sid)
+    }
+
+    fun getUid(): String? {
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return prefs.getString(Const.SHARED_PREFS_UID, null)
+    }
+    fun getKey(): String? {
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
+        return prefs.getString(Const.SHARED_PREFS_KEY, null)
+    }
+
+    fun putSid(sid: String) {
         val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(Const.SHARED_PREFS_KEY, sid)
         editor.apply()
     }
 
+    fun putUid(uid: String) {
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putString(Const.SHARED_PREFS_UID, uid)
+        editor.apply()
+    }
+
     private fun md5Hash(str: String): String {
         val md = MessageDigest.getInstance("MD5")
-        val bigInt = BigInteger(1, md.digest(str.toByteArray(Charsets.UTF_8)))
+        val bigInt = BigInteger(1, md.digest("${str}qwerty".toByteArray(Charsets.UTF_8)))
         return String.format("%032x", bigInt)
     }
 }

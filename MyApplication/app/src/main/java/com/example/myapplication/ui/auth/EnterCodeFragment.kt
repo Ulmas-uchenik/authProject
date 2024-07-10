@@ -48,48 +48,48 @@ class EnterCodeFragment : Fragment() {
 
         }
 
-        lifecycleScope.launch {
-            viewModel.state.collect { state ->
-                when (state) {
-                    is AuthState.Success -> {
-                        Log.d(
-                            "yes",
-                            "view model collect on enter conde, you have a success, have sid = ${state.haveSid}"
-                        )
-
-                        if (state.haveSid) {
-                            startActivity(
-                                Intent(
-                                    binding.editTextCode.context, MainActivity::class.java
-                                )
-                            )
-                            Log.d("yes", "вы успешно вошли в сервис через enter code")
-                            AuthActivity().finish()
-                        }
-                    }
-
-                    is AuthState.Loading -> {
-                        Log.d("yes", "view model collect on enter conde, you have a loading")
-
-                        Snackbar.make(binding.editTextCode, "Загрузка", Snackbar.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    is AuthState.SignIn -> {}
-                    is AuthState.Register -> {}
-
-                    is AuthState.Error -> {
-                        Log.d("yes", "view model collect on enter conde, you have a Error")
-                        Snackbar.make(
-                            binding.editTextCode,
-                            "Вы не правильно ввели пароль не верно",
-                            Snackbar.LENGTH_LONG
-                        )
-                            .setBackgroundTint(Color.parseColor("#FFD85959")).show()
-                        findNavController().navigate(R.id.action_enterCodeFragment_to_enterPhoneFragment)
-                    }
-                }
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.state.collect { state ->
+//                when (state) {
+//                    is AuthState.Success -> {
+//                        Log.d(
+//                            "yes",
+//                            "view model collect on enter conde, you have a success, have sid = ${state.haveSid}"
+//                        )
+//
+//                        if (state.haveSid) {
+//                            startActivity(
+//                                Intent(
+//                                    binding.editTextCode.context, MainActivity::class.java
+//                                )
+//                            )
+//                            Log.d("yes", "вы успешно вошли в сервис через enter code")
+//                            AuthActivity().finish()
+//                        }
+//                    }
+//
+//                    is AuthState.Loading -> {
+//                        Log.d("yes", "view model collect on enter conde, you have a loading")
+//
+//                        Snackbar.make(binding.editTextCode, "Загрузка", Snackbar.LENGTH_SHORT)
+//                            .show()
+//                    }
+//
+//                    is AuthState.SignIn -> {}
+//                    is AuthState.Register -> {}
+//
+//                    is AuthState.Error -> {
+//                        Log.d("yes", "view model collect on enter conde, you have a Error")
+//                        Snackbar.make(
+//                            binding.editTextCode,
+//                            "Вы не правильно ввели пароль не верно",
+//                            Snackbar.LENGTH_LONG
+//                        )
+//                            .setBackgroundTint(Color.parseColor("#FFD85959")).show()
+//                        findNavController().navigate(R.id.action_enterCodeFragment_to_enterPhoneFragment)
+//                    }
+//                }
+//            }
+//        }
     }
 }

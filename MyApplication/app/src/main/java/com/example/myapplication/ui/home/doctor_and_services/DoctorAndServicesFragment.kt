@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.R
@@ -22,6 +23,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class DoctorAndServicesFragment : Fragment() {
     private var _binding: FragmentDoctorAndServicesBinding? = null
@@ -45,7 +47,8 @@ class DoctorAndServicesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val servicesAdapter = CategoriesListAdapter { service, name -> onServiceClick(service, name) }
+        val servicesAdapter =
+            CategoriesListAdapter { service, name -> onServiceClick(service, name) }
         val doctorAdapter = DoctorAdapter { id -> onDoctorClick(id) }
         binding.recyclerView.adapter = servicesAdapter
 
@@ -62,48 +65,60 @@ class DoctorAndServicesFragment : Fragment() {
 
         viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
 
-        tabLayout.addOnTabSelectedListener(object: OnTabSelectedListener{
+        tabLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
-                    when(tab.position){
-                        0 -> viewModel.changeBranchAndGetDoctors(true, binding.cardDoctorServices.context)
-                        1-> viewModel.changeBranchAndGetDoctors(false, binding.cardDoctorServices.context)
+                    when (tab.position) {
+                        0 -> viewModel.changeBranchAndGetDoctors(
+                            true,
+                            binding.cardDoctorServices.context
+                        )
+
+                        1 -> viewModel.changeBranchAndGetDoctors(
+                            false,
+                            binding.cardDoctorServices.context
+                        )
                     }
                 }
 
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        tabLayoutDoctor.addOnTabSelectedListener(object: OnTabSelectedListener{
+        tabLayoutDoctor.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     viewPager2.currentItem = tab.position
-                    when(tab.position){
+                    when (tab.position) {
                         0 -> {
                             binding.recyclerView.adapter = servicesAdapter
+                            viewModel.changeDoctorAndServicesEnumState(DoctorAndServicesEnum.Services)
                         }
-                        1-> {
+
+                        1 -> {
                             binding.recyclerView.adapter = doctorAdapter
+                            viewModel.changeDoctorAndServicesEnumState(DoctorAndServicesEnum.Doctor)
                         }
                     }
                 }
 
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.selectTab(tabLayout.getTabAt(position))
             }
         })
 
-        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback(){
+        viewPager2.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayoutDoctor.selectTab(tabLayout.getTabAt(position))
@@ -113,6 +128,8 @@ class DoctorAndServicesFragment : Fragment() {
         binding.backButtonToolbar.setOnClickListener {
             findNavController().navigate(R.id.action_doctorAndServicesFragment_to_navigation_home)
         }
+
+        setDoctorAndServicesEnumState()
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
@@ -146,12 +163,16 @@ class DoctorAndServicesFragment : Fragment() {
         }
     }
 
+    private fun setDoctorAndServicesEnumState() {
+        tabLayoutDoctor.selectTab(tabLayoutDoctor.getTabAt(viewModel.doctorAndServicesEnum.value.getIdButton()))
+    }
+
     private fun onServiceClick(service: String, name: String) {
         viewModel.chooseService(service, name)
         findNavController().navigate(R.id.action_doctorAndServicesFragment_to_servicesFragment)
     }
 
-    private fun onDoctorClick(id: String){
+    private fun onDoctorClick(id: String) {
         viewModel.chooseDoctor(id)
         findNavController().navigate(R.id.action_doctorAndServicesFragment_to_doctorCardFragment)
     }

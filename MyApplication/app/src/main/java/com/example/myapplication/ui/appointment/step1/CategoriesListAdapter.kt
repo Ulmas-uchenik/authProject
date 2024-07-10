@@ -34,6 +34,9 @@ class CategoriesListAdapter(
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.little_black))
 
         }
+        holder.binding.root.setOnClickListener {
+            onClick(values[position].id, values[position].name)
+        }
         holder.binding.nextButton.setOnClickListener {
             onClick(values[position].id, values[position].name)
         }

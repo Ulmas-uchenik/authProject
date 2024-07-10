@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Stoma</string>
+    <string name="app_name">Стома</string>
     <string name="navigation_home">Главная</string>
     <string name="navigation_appointment">Запись</string>
     <string name="navigation_magazine">Журнал</string>

@@ -12,4 +12,16 @@ interface AuthApiInterface {
         @Query("Login") login: String?,
         @Query("Phone") phone: String?,
     ) : IsAuthorise
+
+    @GET(value = "?Func=AutorizeByUid")
+    suspend fun authByUid(
+        @Query("Uid") uid: String,
+        @Query("Secret") secret: String,
+    ) : IsAuthorise
+
+    @GET(value="?Func=GetSelfInfo")
+    suspend fun getSelfInfo(@Query("Key") key : String): IsAuthorise
+
+    @GET(value="?Func=Logout")
+    suspend fun logout(@Query("Key") key: String)
 }
