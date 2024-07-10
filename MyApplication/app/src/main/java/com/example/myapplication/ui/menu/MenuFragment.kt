@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMenuBinding
 import com.google.android.material.snackbar.Snackbar
@@ -28,7 +29,7 @@ class MenuFragment : Fragment() {
             navigationView.setNavigationItemSelectedListener {
                 when(it.itemId) {
                     R.id.make_an_appointment -> snack(it.title)
-                    R.id.doctors_and_services -> snack(it.title)
+                    R.id.doctors_and_services -> findNavController().navigate(R.id.action_navigation_menu_to_doctorAndServicesFragment)
                     R.id.notifications -> snack(it.title)
                     R.id.magazine_appointments -> snack(it.title)
                     R.id.personal_room -> snack(it.title)

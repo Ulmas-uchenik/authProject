@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.app.Application
 import androidx.room.Room
 import com.example.myapplication.data.bd.AppDatabase
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

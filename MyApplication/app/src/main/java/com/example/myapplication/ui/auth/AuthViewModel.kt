@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.myapplication.data.AuthRepository
-import com.example.myapplication.data.Const
 import com.example.myapplication.ui.menu.StateMainActivity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -56,7 +54,7 @@ class AuthViewModel @Inject constructor(
                 } else _stateMainActivity.value = StateMainActivity.Register
             } catch (t: Throwable) {
                 Log.d(
-                    "TAG",
+                    AUTH_TAG,
                     "При установлении статуса захода в акканту произошла ошибка (AuthViewModel)"
                 )
             }
@@ -65,78 +63,88 @@ class AuthViewModel @Inject constructor(
 
     fun authByUid() {
         viewModelScope.launch {
+            Log.d(AUTH_TAG, "Авторизацию по UID")
+            _state.value = AuthState.Loading
             try {
-                Log.d("TAG", "Авторизация по UID")
+                val isAuthorise = repository.signInByUid()
+                if (isAuthorise.sid != null) {
+                    repository.putSid(isAuthorise.sid)
+                    _state.value = AuthState.Success
+                }
+            } catch (t: Throwable) {
+                _errorLiveData.value = "Ошибпи при входе с помощью uid - ${t.message}"
+                Log.d(AUTH_TAG, "Ошибка авторизации по UID - ${t.message}")
+            }
+        }
+    }
+
+    fun authByUidForMainActivity() {
+        viewModelScope.launch {
+            try {
+                Log.d(AUTH_TAG, "Авторизация по UID (После входа в приложение)")
                 val isAuthorise = repository.signInByUid()
                 if (isAuthorise.sid != null) repository.putSid(isAuthorise.sid)
-                Log.d("TAG", "Авторизация по UID, sid - ${isAuthorise.sid}")
+                Log.d(AUTH_TAG, "Авторизация прошла успешна sid - ${isAuthorise.sid}")
             } catch (t: Throwable) {
-                Log.d("TAG", "Попытка войти с помощь uid обернулась не удачей")
+                Log.d(AUTH_TAG, "Ошибкаа авторизации по UID - ${t.message}")
             }
         }
     }
 
     fun registerSkip() {
         viewModelScope.launch {
-            Log.d("TAG", "Выполлняем вход с помощью skip (AuthViewModel)")
+            Log.d(AUTH_TAG, "Авторизации skip")
+            _state.value = AuthState.Loading
             try {
                 val uid = Random.nextInt(100000000, 1000000000).toString()
                 val isAuthorise = repository.register(uid, login = _userName.value)
                 if (isAuthorise.status == STATUS_OK && !isAuthorise.sid.isNullOrBlank()) {
-                    Log.d("TAG", "state auth skip - success")
+                    Log.d(AUTH_TAG, "state auth skip - success")
                     repository.putSid(isAuthorise.sid)
                     repository.putUid(uid)
                     _state.value = AuthState.Success
                 } else {
-                    Log.d("TAG", "state auth skip - ")
+                    Log.d(AUTH_TAG, "state auth skip - error")
                     _state.value = AuthState.Error("выполнить вход с помощью skip")
                 }
-
             } catch (t: Throwable) {
-                Log.d("TAG", "при выполлняе входа с помощью skip произошла ощибка - ${t.message} (AuthViewModel)")
+                Log.d(AUTH_TAG, "Ошибка авторизации skip - ${t.message}")
             }
         }
     }
 
-    fun logout(){
+    fun logout() {
         viewModelScope.launch {
-            Log.d("TAG", "Выход из аккантуа")
+            Log.d(AUTH_TAG, "Выход из аккантуа")
             try {
                 repository.logout()
-            } catch (t: Throwable){
-                Log.d("TAG", "сделал выход из акканту и произошла ошибка - ${t.message} (AuthViewmodel)")
+            } catch (t: Throwable) {
+                Log.d(AUTH_TAG, "Ошибка выхода из аккаунта - ${t.message}")
             }
         }
     }
 
     fun register(phoneNumber: String) {
         viewModelScope.launch {
-            Log.d("yes", "1")
+            Log.d(AUTH_TAG, "Регистрация")
             if (numberPhoneIsValid(phoneNumber)) {
-                Log.d("yes", "2")
                 val phone = addSevenBeforeNumber(phoneNumber)
-                Log.d("yes", "phone number - ${phone}")
                 try {
                     val uid = Random.nextInt(100000000, 1000000000).toString()
                     val isAuthorise = repository.register(uid, _userName.value, phone)
-                    Log.d(
-                        "yes",
-                        "isAuthorize. isAuthorise.status == STATUS_OK ${isAuthorise.status == STATUS_OK}; !isAuthorise.sid.()  ${!isAuthorise.sid.isNullOrBlank()}"
-                    )
                     if (isAuthorise.status == STATUS_OK && !isAuthorise.sid.isNullOrBlank()) {
-                        Log.d("yes", "3")
                         repository.putSid(isAuthorise.sid)
                         repository.putUid(uid)
                         _state.value = AuthState.Success
                     } else {
-                        Log.d("yes", "4")
+                        Log.d(AUTH_TAG, "Пользователь уже зарегистрирован, нужен вход по uid")
                         _state.value = AuthState.Error(isAuthorise.status)
                     }
                 } catch (t: Throwable) {
-                    Log.d("yes", "все таки с запросом какие то проблемы - ${t.message}")
+                    Log.d(AUTH_TAG, "При регистрации произошла ошибка - ${t.message}")
                 }
             } else {
-                Log.d("yes", "5")
+                Log.d(AUTH_TAG, "Номер телефона не валиден")
                 _errorLiveData.value = "Вы ввели не верный номер телефона"
             }
         }
@@ -149,7 +157,7 @@ class AuthViewModel @Inject constructor(
 
 
     companion object {
-        const val AUTH_TAG = "auth process"
+        const val AUTH_TAG = "AUTH_TAG"
         const val STATUS_OK = "OK"
         const val STATUS_ERROR = "Error"
     }

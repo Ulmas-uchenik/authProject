@@ -3,7 +3,6 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -12,7 +11,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.myapplication.data.AuthRepository
-import com.example.myapplication.data.DoctorRepository
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.auth.AuthActivity
@@ -28,8 +26,6 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val authRepository = AuthRepository(this, RetrofitInstance())
-
     @Inject
     lateinit var viewModelFactory: AuthViewModelFactory
     private val viewModel: AuthViewModel by viewModels { viewModelFactory }
@@ -46,8 +42,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.logout()
             startActivity(Intent(this, AuthActivity::class.java))
             this.finish()
-//            repository.exitFromAccount()
-//            isAuthorise()
         }
 
 
@@ -74,10 +68,10 @@ class MainActivity : AppCompatActivity() {
                         this@MainActivity.finish()
                     }
                     is StateMainActivity.SignByUid -> {
-                        viewModel.authByUid()
+                        viewModel.authByUidForMainActivity()
                     }
                     is StateMainActivity.LoadState -> {
-                        Log.d("TAG", "StateMainActivity loading " )
+                        Log.d(AuthViewModel.AUTH_TAG , "Загрузка пользователя по UID" )
                     }
                 }
             }

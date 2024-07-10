@@ -30,7 +30,13 @@
     <fragment
         android:id="@+id/navigation_menu"
         android:name="com.example.myapplication.ui.menu.MenuFragment"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_navigation_menu_to_doctorAndServicesFragment"
+            app:popUpTo="@id/navigation_menu"
+            app:popUpToInclusive="true"
+            app:destination="@id/doctorAndServicesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/appointmentSecondStepFragment"
         android:name="com.example.myapplication.ui.appointment.step2.AppointmentSecondStepFragment"

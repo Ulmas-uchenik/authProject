@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.myapplication.R
@@ -129,7 +128,7 @@ class DoctorAndServicesFragment : Fragment() {
             findNavController().navigate(R.id.action_doctorAndServicesFragment_to_navigation_home)
         }
 
-        setDoctorAndServicesEnumState()
+        saveDoctorAndServicesBranch()
 
         lifecycleScope.launch {
             viewModel.state.collect { state ->
@@ -163,7 +162,7 @@ class DoctorAndServicesFragment : Fragment() {
         }
     }
 
-    private fun setDoctorAndServicesEnumState() {
+    private fun saveDoctorAndServicesBranch() {
         tabLayoutDoctor.selectTab(tabLayoutDoctor.getTabAt(viewModel.doctorAndServicesEnum.value.getIdButton()))
     }
 

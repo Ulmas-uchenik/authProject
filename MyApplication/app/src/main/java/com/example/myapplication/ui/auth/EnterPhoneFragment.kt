@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,9 +23,6 @@ class EnterPhoneFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: AuthViewModelFactory
     private val viewModel: AuthViewModel by activityViewModels { viewModelFactory }
-
-    // Инициализация callback
-    private lateinit var mCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
     private var _binding: FragmentEnterPhoneBinding? = null
     private val binding get() = _binding!!
@@ -52,7 +48,6 @@ class EnterPhoneFragment : Fragment() {
         binding.registerButton.setOnClickListener {
             val telephoneNumber = binding.editTelephoneNumber.text
             viewModel.register(binding.editTelephoneNumber.text.toString())
-            Log.d("yes", "Telephone - is ${binding.editTelephoneNumber.text.toString()}")
         }
 
         binding.skipButton.setOnClickListener {
@@ -72,17 +67,9 @@ class EnterPhoneFragment : Fragment() {
                         AuthActivity().finish()
                     }
 
-                    is AuthState.Loading -> {
-                        Snackbar.make(binding.editPass, "Загрузка", Snackbar.LENGTH_SHORT).show()
-                    }
+                    is AuthState.Loading -> Snackbar.make(binding.editPass, "Загрузка", Snackbar.LENGTH_SHORT).show()
 
-                    is AuthState.Error -> {
-                        if(viewModel.haveUid()) {
-                            viewModel.authByUid()
-                            Snackbar.make(binding.editPass, "Перезапустите прилоежние чтобы войти на главный экран (Код Костыль)", Snackbar.LENGTH_LONG)
-                                .show()
-                        }
-                    }
+                    is AuthState.Error -> if(viewModel.haveUid()) viewModel.authByUid()
 
                     is AuthState.SignIn -> {
                         with(binding) {
@@ -108,6 +95,7 @@ class EnterPhoneFragment : Fragment() {
                 }
             }
         }
+
         viewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
             Snackbar.make(binding.editPass , "Ошибка регистрации - ${error}", Snackbar.LENGTH_LONG)
                 .setBackgroundTint(Color.parseColor("#FFD85959")).show()
