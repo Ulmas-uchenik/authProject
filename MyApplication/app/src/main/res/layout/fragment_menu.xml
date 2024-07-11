@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
     android:layout_width="match_parent"
+    android:paddingTop="@dimen/margin_medium"
     android:layout_height="match_parent"
     tools:context=".ui.menu.MenuFragment">
 
@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:itemIconSize="30dp"
+        android:background="@color/background_white"
         app:itemIconTint="@color/gray"
         app:itemTextAppearance="@style/MenuTextView"
         app:layout_constraintEnd_toEndOf="parent"

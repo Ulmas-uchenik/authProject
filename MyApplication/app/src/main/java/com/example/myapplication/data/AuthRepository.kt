@@ -2,8 +2,10 @@ package com.example.myapplication.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.data.models.IsAuthorise
+import com.example.myapplication.ui.auth.AuthViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -15,6 +17,7 @@ class AuthRepository @Inject constructor(
 ) {
     suspend fun register(uid: String, login: String? = null, phone: String? = null): IsAuthorise {
         val secret = md5Hash(uid)
+        Log.d(AuthViewModel.AUTH_TAG, "UID in app memory - ${getUid()}")
         return retrofitInstance.authApiInterface.register(
             uid = uid, secret = secret, login = login, phone = phone
         )
@@ -56,6 +59,13 @@ class AuthRepository @Inject constructor(
         val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(Const.SHARED_PREFS_UID, uid)
+        editor.apply()
+    }
+
+    fun tempForAdminPutUid(){
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putString(Const.SHARED_PREFS_UID, "463979645")
         editor.apply()
     }
 

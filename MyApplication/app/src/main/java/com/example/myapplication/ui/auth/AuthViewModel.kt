@@ -97,7 +97,7 @@ class AuthViewModel @Inject constructor(
             _state.value = AuthState.Loading
             try {
                 val uid = Random.nextInt(100000000, 1000000000).toString()
-                val isAuthorise = repository.register(uid, login = _userName.value)
+                val isAuthorise = repository.register(uid)
                 if (isAuthorise.status == STATUS_OK && !isAuthorise.sid.isNullOrBlank()) {
                     Log.d(AUTH_TAG, "state auth skip - success")
                     repository.putSid(isAuthorise.sid)
@@ -131,6 +131,7 @@ class AuthViewModel @Inject constructor(
                 val phone = addSevenBeforeNumber(phoneNumber)
                 try {
                     val uid = Random.nextInt(100000000, 1000000000).toString()
+                    Log.d(AUTH_TAG, "UID in registration - $uid")
                     val isAuthorise = repository.register(uid, _userName.value, phone)
                     if (isAuthorise.status == STATUS_OK && !isAuthorise.sid.isNullOrBlank()) {
                         repository.putSid(isAuthorise.sid)

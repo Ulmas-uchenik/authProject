@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.menu.profile.ProfileFragment">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        style="@style/tab_layout">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:id="@+id/back_button_toolbar"
+            style="@style/tab_layout_back_button" />
+
+        <TextView
+            style="@style/tab_layout_title_text"
+            android:text="@string/personal_room" />
+    </Toolbar>
+
+    <View style="@style/tab_layout_bottom_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_medium"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_medium"
+            android:textStyle="bold"
+            android:textColor="@color/little_black"
+            android:maxLines="1"
+            tools:text="Татьяна Александровна Б."
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+</LinearLayout>

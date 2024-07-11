@@ -13,6 +13,7 @@
     <string name="welcome">Добро пожаловать!</string>
     <string name="enter_user_name">Введите свое имя</string>
     <string name="continue_">Продолжить</string>
+    <string name="skip">Пропустить</string>
 
     <string name="error_phone_number">Номер телефона введен не верно</string>
 

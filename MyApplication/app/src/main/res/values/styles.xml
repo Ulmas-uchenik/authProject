@@ -19,7 +19,7 @@
     </style>
 
     <style name="MenuTextView">
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_upper_little</item>
         <item name="color">@color/gray</item>
     </style>
 
