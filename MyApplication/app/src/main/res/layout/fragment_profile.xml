@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.menu.profile.ProfileFragment">
 
+
     <Toolbar
         android:id="@+id/toolbar"
         style="@style/tab_layout">
@@ -68,33 +69,58 @@
                 tools:text="00.00.00" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_pass"
+            android:id="@+id/layout_edit_text_telephone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_upper_little"
-            android:hint="Номер телефона">
+            android:allowClickWhenDisabled="false"
+            android:hint="@string/telephone_number">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_text_pass"
+                android:id="@+id/edit_text_telephone_number"
                 android:layout_width="match_parent"
-                android:hint="hello"
                 android:layout_height="wrap_content"
-                tools:text="00.00.00" />
+                android:focusable="false" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <FrameLayout
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/conformed_telephone_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/empty"
+            android:text="Подтвердить номер телефона"
+            android:textAllCaps="false"
+            android:textColor="@color/blue_text_button"
+            android:layout_gravity="end
+"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_upper_little">
 
             <Button
                 android:id="@+id/save_button"
                 android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/margin_upper_little"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="@string/save" />
+                android:text="@string/save"
+                app:layout_constraintBottom_toTopOf="@id/exit_button"
+                />
 
-        </FrameLayout>
+            <Button
+                android:id="@+id/exit_button"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/red_background"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/exit"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 

@@ -16,6 +16,9 @@
     <string name="birthday">День Рождение</string>
     <string name="fio">Ф.И.О</string>
     <string name="save">Сохранить</string>
+    <string name="telephone_number">Номер телефона</string>
+    <string name="ok">Хорошо</string>
+    <string name="exit">Выйти</string>
     <string name="enter_user_lastname">Фамилия (необязательно)</string>
     <string name="continue_">Продолжить</string>
     <string name="skip">Пропустить</string>
@@ -47,4 +50,5 @@
     <string name="sign_in">Войти</string>
     <string name="register">Зарегистрироваться</string>
     <string name="title_activity_plug">PlugActivity</string>
+    <string name="operator_call">Вам позвонит оператор чтобы подтвердить номер телефона</string>
 </resources>

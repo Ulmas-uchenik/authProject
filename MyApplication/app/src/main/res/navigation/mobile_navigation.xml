@@ -17,6 +17,11 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/navigation_home"
             app:destination="@id/profileFragment" />
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/notificationsFragment"
+            android:id="@+id/action_navigation_home_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
     </fragment>
 
     <fragment
@@ -106,7 +111,7 @@
         <action
             android:id="@+id/action_notificationsFragment_to_navigation_menu"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/navigation_menu"
+            app:popUpTo="@id/notificationsFragment"
             app:destination="@id/navigation_menu" />
     </fragment>
     <fragment

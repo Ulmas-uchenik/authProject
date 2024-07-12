@@ -19,9 +19,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
 
     buildTypes {
@@ -42,15 +39,6 @@ android {
     }
     buildFeatures {
         viewBinding = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
     }
 }
 
@@ -80,6 +68,8 @@ dependencies {
 
     //Hilt
     implementation ("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.androidx.activity)
+    implementation(libs.firebase.auth.ktx)
     kapt ("com.google.dagger:hilt-compiler:2.51.1")
 
     //Android navigation X
@@ -100,6 +90,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.room:room-rxjava2:$room_version")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

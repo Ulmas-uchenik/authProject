@@ -1,22 +1,32 @@
 package com.example.myapplication.ui.menu.profile
 
+import android.app.Dialog
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.addCallback
-import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.UserViewModel
 import com.example.myapplication.UserViewModelFactory
 import com.example.myapplication.databinding.FragmentProfileBinding
+import com.example.myapplication.ui.auth.AuthActivity
+import com.example.myapplication.ui.auth.AuthViewModel
+import com.example.myapplication.ui.auth.AuthViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -28,6 +38,10 @@ class ProfileFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: UserViewModelFactory
     private val viewModel: UserViewModel by activityViewModels { viewModelFactory }
+
+    @Inject
+    lateinit var authViewModelFactory: AuthViewModelFactory
+    private val authViewModel: AuthViewModel by viewModels { authViewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,23 +55,16 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val dialogBinding = layoutInflater.inflate(R.layout.dialog_conformed_phone, null)
+        val myDialog = Dialog(binding.root.context)
+        myDialog.setContentView(dialogBinding)
+        myDialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        myDialog.setCancelable(true)
+        myDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         setAllText()
-
-        binding.editTextPass.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val text = format(binding.editTextPass.text.toString())
-                binding.editTextPass.
-                binding.editTextPass.setText(text)
-            }
-        })
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             findNavController().navigate(R.id.action_profileFragment_to_navigation_menu)
@@ -65,6 +72,22 @@ class ProfileFragment : Fragment() {
 
         binding.backButtonToolbar.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_navigation_menu)
+        }
+
+        binding.exitButton.setOnClickListener {
+            authViewModel.logout()
+            MainActivity().finish()
+            startActivity(Intent(binding.root.context, AuthActivity::class.java))
+        }
+
+        binding.conformedTelephoneButton.setOnClickListener {
+            myDialog.show()
+
+            val backButton = dialogBinding.findViewById<ImageButton>(R.id.back_button)
+            backButton.setOnClickListener {
+                myDialog.dismiss()
+            }
+
         }
 
     }
@@ -76,31 +99,14 @@ class ProfileFragment : Fragment() {
             binding.fioEditText.setText("${selfInfo.login}")
             binding.editTextBirthday.setText("${selfInfo.birthDay}")
             binding.fioTextView.text = selfInfo.login
+
+            val showTelephoneNumber = if (selfInfo.phone.isNotBlank()) View.VISIBLE else View.GONE
+            binding.editTextTelephoneNumber.setText(selfInfo.phone)
+            binding.layoutEditTextTelephoneNumber.visibility = showTelephoneNumber
+            binding.conformedTelephoneButton.visibility = if(selfInfo.phone.isNotBlank() && selfInfo.phoneConformed == "0") View.VISIBLE else View.GONE
+
         }
     }
-
-    private fun format(text: String): String{
-        val validChar = "1234567890"
-        val textWithValidChar: StringBuilder = StringBuilder("")
-        for (i in text.indices) {
-            if (validChar.contains(text[i])) textWithValidChar.append(text[i])
-        }
-
-        val resultText = StringBuilder("")
-
-        for(i in textWithValidChar.indices) {
-            when (i) {
-                0 -> resultText.append("+7 (${textWithValidChar[i]}")
-                2 -> resultText.append("${textWithValidChar[i]}) ")
-                6 -> resultText.append("-${textWithValidChar[i]}")
-                8 -> resultText.append("-${textWithValidChar[i]}")
-                else -> resultText.append(textWithValidChar[i])
-            }
-        }
-        return resultText.toString()
-    }
-
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

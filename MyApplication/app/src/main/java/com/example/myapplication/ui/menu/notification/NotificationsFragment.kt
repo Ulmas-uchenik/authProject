@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -41,6 +42,10 @@ class NotificationsFragment : Fragment() {
             findNavController().navigate(R.id.action_notificationsFragment_to_navigation_menu)
         }
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_notificationsFragment_to_navigation_menu)
+        }
+
         lifecycleScope.launch {
             viewModel.notification.collect {
                 adapter.setData(it)
@@ -51,6 +56,7 @@ class NotificationsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         viewModel.pointAllNotificationAdRead()
+        viewModel.getNotification()
         _binding = null
     }
 }

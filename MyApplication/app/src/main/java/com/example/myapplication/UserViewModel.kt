@@ -22,6 +22,9 @@ class UserViewModel @Inject constructor(
     private val _selfInfo = MutableStateFlow<SelfInfo?>(null)
     val selfInfo = _selfInfo.asStateFlow()
 
+    private val _openFragment = MutableStateFlow<String>("")
+    val openFragment = _openFragment.asStateFlow()
+
     fun getNotification() {
         viewModelScope.launch {
             try {
@@ -62,6 +65,10 @@ class UserViewModel @Inject constructor(
                 Log.d(USER_TAG, "При пометке всех уведомлений как прочитанные возникла ошибка - ${t.message}")
             }
         }
+    }
+
+    fun putOpenFragment(fragment: String){
+        _openFragment.value = fragment
     }
 
     companion object {

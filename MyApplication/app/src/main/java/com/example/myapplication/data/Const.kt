@@ -18,4 +18,7 @@ object Const {
 
     const val NEW = "new"
     const val OLD = "old"
+
+    const val HOW_FRAGMENT_OPEN = "HOW_FRAGMENT_OPEN"
+    const val NOTIFICATION_FRAGMENT = "Notification Fragment"
 }
