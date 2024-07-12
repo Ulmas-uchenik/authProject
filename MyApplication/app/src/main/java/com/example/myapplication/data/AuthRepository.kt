@@ -5,12 +5,12 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.data.models.IsAuthorise
+import com.example.myapplication.data.models.SelfInfo
 import com.example.myapplication.ui.auth.AuthViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
 import java.math.BigInteger
 import java.security.MessageDigest
 import javax.inject.Inject
-import kotlin.random.Random
 
 class AuthRepository @Inject constructor(
     @ActivityContext private val context: Context, private val retrofitInstance: RetrofitInstance
@@ -29,7 +29,7 @@ class AuthRepository @Inject constructor(
         return retrofitInstance.authApiInterface.authByUid(uid, secret)
     }
 
-    suspend fun getSelfInfo() : IsAuthorise {
+    suspend fun getSelfInfo() : SelfInfo {
         val sid = getKey()!!
         return retrofitInstance.authApiInterface.getSelfInfo(sid)
     }
@@ -52,6 +52,13 @@ class AuthRepository @Inject constructor(
         val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
         editor.putString(Const.SHARED_PREFS_KEY, sid)
+        editor.apply()
+    }
+
+    fun putUserId(userId: String) {
+        val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = prefs.edit()
+        editor.putString(Const.SHARED_PREFS_USER_ID, userId)
         editor.apply()
     }
 

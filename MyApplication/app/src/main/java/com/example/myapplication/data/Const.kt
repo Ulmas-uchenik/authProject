@@ -8,17 +8,8 @@ object Const {
     const val PREFERENCE_NAME = "PreferenceDoctor"
     const val SHARED_PREFS_KEY = "shared_key"
     const val SHARED_PREFS_UID = "shared_uid"
-}
+    const val SHARED_PREFS_USER_ID = "shared_user_id"
 
-fun main(){
-    val uid = Random.nextInt(100000000, 1000000000).toString()
-    val secret = jj("${uid}qwerty")
-
-    println("UID - $uid")
-    println("Secret - $secret")
-}
-fun jj(str: String): String {
-    val md = MessageDigest.getInstance("MD5")
-    val bigInt = BigInteger(1, md.digest(str.toByteArray(Charsets.UTF_8)))
-    return String.format("%032x", bigInt)
+    const val OK = "OK"
+    const val ERROR = "Error"
 }

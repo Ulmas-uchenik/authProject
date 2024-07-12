@@ -44,12 +44,5 @@ interface InfodentApiInterface {
         @Query("Key") key: String
     ) : DoctorInfo
 
-    @GET(value = "?Func=Register")
-    suspend fun register(
-        @Query("Uid") uid: String,
-        @Query("Secret") secret: String,
-        @Query("Login") login: String?,
-        @Query("Phone") phone: String?,
-    ) : IsAuthorise
 }
 

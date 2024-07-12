@@ -36,6 +36,12 @@
             app:popUpTo="@id/navigation_menu"
             app:popUpToInclusive="true"
             app:destination="@id/doctorAndServicesFragment" />
+        <action
+            android:id="@+id/action_navigation_menu_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_navigation_menu_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/appointmentSecondStepFragment"
@@ -86,5 +92,27 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/doctorAndServicesFragment"
             app:destination="@id/doctorAndServicesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.myapplication.ui.menu.notification.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_navigation_menu"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_menu"
+            app:destination="@id/navigation_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.myapplication.ui.menu.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_navigation_menu"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_menu"
+            app:destination="@id/navigation_menu" />
     </fragment>
 </navigation>

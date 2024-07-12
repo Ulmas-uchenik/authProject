@@ -22,14 +22,14 @@ class AuthViewModel @Inject constructor(
     private val _errorLiveData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> = _errorLiveData
 
-    private val _userName = MutableStateFlow("")
+    private val _userName = MutableStateFlow(User("",""))
 
     private val _stateMainActivity =
         MutableStateFlow<StateMainActivity>(StateMainActivity.LoadState)
     val stateMainActivity = _stateMainActivity.asStateFlow()
 
-    fun setUserName(name: String) {
-        _userName.value = name
+    fun setUserFio(name: String, lastname: String) {
+        _userName.value = User(name, lastname)
     }
 
     fun checkUserName(name: String) = name.replace(" ", "").length >= 3
@@ -48,8 +48,10 @@ class AuthViewModel @Inject constructor(
             try {
                 if (haveUid()) {
                     val isAuth = repository.getSelfInfo()
-                    if (isAuth.status == STATUS_OK) _stateMainActivity.value =
-                        StateMainActivity.SignByUid
+                    if (isAuth.status == STATUS_OK) {
+                        _stateMainActivity.value = StateMainActivity.SignByUid
+                        repository.putUserId(isAuth.id)
+                    }
                     else _stateMainActivity.value = StateMainActivity.Register
                 } else _stateMainActivity.value = StateMainActivity.Register
             } catch (t: Throwable) {
@@ -132,7 +134,7 @@ class AuthViewModel @Inject constructor(
                 try {
                     val uid = Random.nextInt(100000000, 1000000000).toString()
                     Log.d(AUTH_TAG, "UID in registration - $uid")
-                    val isAuthorise = repository.register(uid, _userName.value, phone)
+                    val isAuthorise = repository.register(uid, "${_userName.value.name} ${_userName.value.lastname}", phone)
                     if (isAuthorise.status == STATUS_OK && !isAuthorise.sid.isNullOrBlank()) {
                         repository.putSid(isAuthorise.sid)
                         repository.putUid(uid)
@@ -162,4 +164,9 @@ class AuthViewModel @Inject constructor(
         const val STATUS_OK = "OK"
         const val STATUS_ERROR = "Error"
     }
+
+    data class User(
+        val name: String,
+        val lastname: String
+    )
 }

@@ -1,17 +1,25 @@
 package com.example.myapplication
 
+import android.Manifest.*
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.myapplication.data.AuthRepository
-import com.example.myapplication.data.api.RetrofitInstance
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.auth.AuthActivity
 import com.example.myapplication.ui.auth.AuthViewModel
@@ -19,16 +27,39 @@ import com.example.myapplication.ui.auth.AuthViewModelFactory
 import com.example.myapplication.ui.menu.StateMainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(this, "Notifications permission granted", Toast.LENGTH_SHORT)
+                .show()
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Чтобы получать уведомления, выдайте разрешение",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
     private lateinit var binding: ActivityMainBinding
+
     @Inject
-    lateinit var viewModelFactory: AuthViewModelFactory
-    private val viewModel: AuthViewModel by viewModels { viewModelFactory }
+    lateinit var authViewModelFactory: AuthViewModelFactory
+    private val authViewModel: AuthViewModel by viewModels { authViewModelFactory }
+
+    @Inject
+    lateinit var userViewModelFactory: UserViewModelFactory
+    private val userViewModel: UserViewModel by viewModels { userViewModelFactory }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +67,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        viewModel.setStateForMainActivity()
+        authViewModel.setStateForMainActivity()
 
         binding.exitFromAccount.setOnClickListener {
-            viewModel.logout()
+            authViewModel.logout()
             startActivity(Intent(this, AuthActivity::class.java))
             this.finish()
         }
@@ -61,20 +92,84 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         lifecycleScope.launch {
-            viewModel.stateMainActivity.collect { state ->
-                when(state) {
+            authViewModel.stateMainActivity.collect { state ->
+                when (state) {
                     is StateMainActivity.Register -> {
                         startActivity(Intent(this@MainActivity, AuthActivity::class.java))
                         this@MainActivity.finish()
                     }
+
                     is StateMainActivity.SignByUid -> {
-                        viewModel.authByUidForMainActivity()
+                        authViewModel.authByUidForMainActivity()
                     }
+
                     is StateMainActivity.LoadState -> {
-                        Log.d(AuthViewModel.AUTH_TAG , "Загрузка пользователя по UID" )
+                        Log.d(AuthViewModel.AUTH_TAG, "Загрузка пользователя по UID")
                     }
                 }
             }
         }
+        lifecycleScope.launch {
+            repeat(10) {
+                delay(5000)
+                userViewModel.getNotification()
+            }
+        }
+
+        lifecycleScope.launch {
+            userViewModel.notification.collect { notificationList ->
+                if (notificationList.isNotEmpty()) {
+                    notificationList.forEach {
+                        createNotification(it.text, it.id.toInt())
+                    }
+                }
+            }
+        }
+    }
+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    permission.POST_NOTIFICATIONS
+                ) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+            } else {
+                requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private fun createNotification(contentText: String, id: Int) {
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            ) else PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+
+        val notification = NotificationCompat.Builder(this, App.NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(getString(R.string.app_name))
+            .setContentText(contentText)
+            .setContentIntent(pendingIntent).setAutoCancel(true)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
+
+        if (ActivityCompat.checkSelfPermission(
+                this, permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            askNotificationPermission()
+            return
+        }
+
+        NotificationManagerCompat.from(this).notify(id, notification)
+    }
+
+    companion object {
+        private const val NOTIFICATION_ID = 1000
     }
 }
