@@ -23,7 +23,7 @@
         android:icon="@drawable/news_24px"
         android:title="Журнал записей" />
     <item
-        android:id="@+id/personal_room"
+        android:id="@+id/profile_room"
         android:icon="@drawable/person_24px"
         android:title="Личный кабинет" />
 

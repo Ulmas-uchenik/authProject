@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/stoma_image_view">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_text"
+            android:id="@+id/layout_edit_text_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:prefixText="+7 ">

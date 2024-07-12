@@ -53,6 +53,17 @@ class UserViewModel @Inject constructor(
         }
     }
 
+    fun pointAllNotificationAdRead(){
+        viewModelScope.launch {
+            Log.d(USER_TAG, "Отметка всех уведомлений как прочитанные")
+            try {
+                repository.pointAllNotificationAdRead()
+            } catch (t: Throwable){
+                Log.d(USER_TAG, "При пометке всех уведомлений как прочитанные возникла ошибка - ${t.message}")
+            }
+        }
+    }
+
     companion object {
         const val USER_TAG = "USER_TAG"
     }

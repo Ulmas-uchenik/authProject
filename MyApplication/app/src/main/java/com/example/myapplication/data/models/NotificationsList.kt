@@ -11,6 +11,7 @@ data class NotificationsList(
         @SerializedName("Date") val date: String,
         @SerializedName("Id") val id: String,
         @SerializedName("Status") val status: String,
-        @SerializedName("Text") val text: String
+        @SerializedName("Text") val text: String,
+        @SerializedName("New") val new: String
     )
 }

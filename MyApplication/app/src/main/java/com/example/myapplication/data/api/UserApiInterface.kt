@@ -9,10 +9,15 @@ interface UserApiInterface {
     @GET(value="?Func=GetSelfInfo")
     suspend fun getSelfInfo(@Query("Key") key : String): SelfInfo
 
-    @GET(value="?Func=NotificationsSelf ")
+    @GET(value="?Func=NotificationsSelf")
     suspend fun getAllNotification(
         @Query("Key") key : String,
         @Query("ClientId") clientId : String,
+    ): NotificationsList
+
+    @GET(value="?Func=SetNotificationsAsRead")
+    suspend fun pointAllNotificationAdRead(
+        @Query("Key") key : String,
     ): NotificationsList
 
 }

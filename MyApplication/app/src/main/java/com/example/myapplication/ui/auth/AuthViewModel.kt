@@ -28,7 +28,9 @@ class AuthViewModel @Inject constructor(
         MutableStateFlow<StateMainActivity>(StateMainActivity.LoadState)
     val stateMainActivity = _stateMainActivity.asStateFlow()
 
-    fun setUserFio(name: String, lastname: String) {
+    fun setUserFio(nameTemp: String, lastnameTemp: String) {
+        val name = nameTemp.replace(" ", "")
+        val lastname = lastnameTemp.replace(" ", "")
         _userName.value = User(name, lastname)
     }
 
@@ -87,6 +89,7 @@ class AuthViewModel @Inject constructor(
                 val isAuthorise = repository.signInByUid()
                 if (isAuthorise.sid != null) repository.putSid(isAuthorise.sid)
                 Log.d(AUTH_TAG, "Авторизация прошла успешна sid - ${isAuthorise.sid}")
+                _stateMainActivity.value = StateMainActivity.IsAuthorized
             } catch (t: Throwable) {
                 Log.d(AUTH_TAG, "Ошибкаа авторизации по UID - ${t.message}")
             }

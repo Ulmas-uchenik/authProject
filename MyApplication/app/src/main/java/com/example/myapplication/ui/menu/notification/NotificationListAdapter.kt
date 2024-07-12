@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.data.Const
 import com.example.myapplication.data.models.NotificationsList
 import com.example.myapplication.databinding.ItemNotificationBinding
 
@@ -28,7 +29,7 @@ class NotificationListAdapter : RecyclerView.Adapter<NotificationListViewHolder>
         val item = values[position]
         with(holder.binding) {
             contentTextView.text = item.text
-            if (item.id.toInt() % 2 == 0) isReadedView.setBackgroundColor(
+            if (item.status == Const.READED) isReadedView.setBackgroundColor(
                 ContextCompat.getColor(
                     holder.binding.isReadedView.context, R.color.empty
                 )

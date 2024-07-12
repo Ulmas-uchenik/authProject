@@ -50,6 +50,7 @@ class NotificationsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.pointAllNotificationAdRead()
         _binding = null
     }
 }

@@ -43,6 +43,5 @@ interface InfodentApiInterface {
         @Query("Id") id: String,
         @Query("Key") key: String
     ) : DoctorInfo
-
 }
 

@@ -12,6 +12,11 @@
         <action
             android:id="@+id/action_navigation_home_to_doctorAndServicesFragment"
             app:destination="@id/doctorAndServicesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_profileFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/navigation_home"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -112,7 +117,7 @@
         <action
             android:id="@+id/action_profileFragment_to_navigation_menu"
             app:popUpToInclusive="true"
-            app:popUpTo="@id/navigation_menu"
+            app:popUpTo="@id/profileFragment"
             app:destination="@id/navigation_menu" />
     </fragment>
 </navigation>

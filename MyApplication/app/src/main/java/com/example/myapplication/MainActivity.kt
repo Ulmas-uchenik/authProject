@@ -20,11 +20,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.myapplication.data.Const
+import com.example.myapplication.data.models.NotificationsList
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.ui.auth.AuthActivity
 import com.example.myapplication.ui.auth.AuthViewModel
 import com.example.myapplication.ui.auth.AuthViewModelFactory
 import com.example.myapplication.ui.menu.StateMainActivity
+import com.example.myapplication.ui.menu.notification.NotificationListViewHolder
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -67,14 +70,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        authViewModel.setStateForMainActivity()
+        callStartFunctions()
 
         binding.exitFromAccount.setOnClickListener {
             authViewModel.logout()
             startActivity(Intent(this, AuthActivity::class.java))
             this.finish()
         }
-
 
         val navView: BottomNavigationView = binding.navView
 
@@ -91,27 +93,11 @@ class MainActivity : AppCompatActivity() {
         )
         navView.setupWithNavController(navController)
 
-        lifecycleScope.launch {
-            authViewModel.stateMainActivity.collect { state ->
-                when (state) {
-                    is StateMainActivity.Register -> {
-                        startActivity(Intent(this@MainActivity, AuthActivity::class.java))
-                        this@MainActivity.finish()
-                    }
 
-                    is StateMainActivity.SignByUid -> {
-                        authViewModel.authByUidForMainActivity()
-                    }
-
-                    is StateMainActivity.LoadState -> {
-                        Log.d(AuthViewModel.AUTH_TAG, "Загрузка пользователя по UID")
-                    }
-                }
-            }
-        }
         lifecycleScope.launch {
-            repeat(10) {
-                delay(5000)
+            userViewModel.getNotification()
+            while (true) {
+                delay(30000)
                 userViewModel.getNotification()
             }
         }
@@ -120,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             userViewModel.notification.collect { notificationList ->
                 if (notificationList.isNotEmpty()) {
                     notificationList.forEach {
-                        createNotification(it.text, it.id.toInt())
+                        createNotification(it)
                     }
                 }
             }
@@ -141,7 +127,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNotification(contentText: String, id: Int) {
+    private fun createNotification(notificationInfo: NotificationsList.Notification) {
+        if (notificationInfo.new == Const.OLD) return
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) PendingIntent.getActivity(
@@ -154,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         val notification = NotificationCompat.Builder(this, App.NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText(contentText)
+            .setContentText(notificationInfo.text)
             .setContentIntent(pendingIntent).setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
 
@@ -166,10 +153,10 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        NotificationManagerCompat.from(this).notify(id, notification)
+        NotificationManagerCompat.from(this).notify(notificationInfo.id.toInt(), notification)
     }
 
-    companion object {
-        private const val NOTIFICATION_ID = 1000
+    private fun callStartFunctions(){
+        userViewModel.putSelfInfo()
     }
 }

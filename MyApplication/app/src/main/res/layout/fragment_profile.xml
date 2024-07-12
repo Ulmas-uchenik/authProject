@@ -49,11 +49,12 @@
                 android:id="@+id/fio_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName"
                 tools:text="Барашних Х Х " />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_text"
+            android:id="@+id/layout_edit_text_birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_upper_little"
@@ -62,6 +63,22 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_birthday"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                tools:text="00.00.00" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_upper_little"
+            android:hint="Номер телефона">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_pass"
+                android:layout_width="match_parent"
+                android:hint="hello"
                 android:layout_height="wrap_content"
                 tools:text="00.00.00" />
         </com.google.android.material.textfield.TextInputLayout>

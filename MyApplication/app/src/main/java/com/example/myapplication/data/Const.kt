@@ -12,4 +12,10 @@ object Const {
 
     const val OK = "OK"
     const val ERROR = "Error"
+
+    const val READED = "Readed"
+    const val UNREADED = "Unreaded"
+
+    const val NEW = "new"
+    const val OLD = "old"
 }

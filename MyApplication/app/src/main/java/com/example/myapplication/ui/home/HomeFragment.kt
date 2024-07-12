@@ -39,9 +39,8 @@ class HomeFragment : Fragment() {
 
         }
 
-        binding.personalRoom.setOnClickListener {
-            Snackbar.make(it, "сделать переход на личный кабинет", Snackbar.LENGTH_LONG)
-                .show()
+        binding.profileRoom.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_profileFragment)
         }
     }
 

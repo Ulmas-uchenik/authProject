@@ -22,6 +22,11 @@ class UserRepository @Inject constructor(
         return retrofitInstance.userApiInterface.getSelfInfo(key)
     }
 
+    suspend fun pointAllNotificationAdRead(): NotificationsList {
+        val key = getKey()!!
+        return retrofitInstance.userApiInterface.pointAllNotificationAdRead(key)
+    }
+
     fun getUserId(): String? {
         val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
         return prefs.getString(Const.SHARED_PREFS_USER_ID, null)
