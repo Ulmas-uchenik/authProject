@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -68,12 +69,16 @@ class EnterPhoneFragment : Fragment() {
                     }
 
                     is AuthState.Loading -> {
-
+                        if(!state.isFirstStart) disableAllInLoadingState(true)
                     }
 
-                    is AuthState.Error -> if(viewModel.haveUid()) viewModel.authByUid()
+                    is AuthState.Error -> {
+                        if (viewModel.haveUid()) viewModel.authByUid()
+                        disableAllInLoadingState(false)
+                    }
 
                     is AuthState.SignIn -> {
+                        disableAllInLoadingState(false)
                         with(binding) {
                             changeOnSignInButton.visibility = View.GONE
                             changeOnRegisterButton.visibility = View.VISIBLE
@@ -85,6 +90,7 @@ class EnterPhoneFragment : Fragment() {
                     }
 
                     is AuthState.Register -> {
+                        disableAllInLoadingState(false)
                         with(binding) {
                             layoutEditPass.visibility = View.GONE
                             changeOnSignInButton.visibility = View.VISIBLE
@@ -101,6 +107,18 @@ class EnterPhoneFragment : Fragment() {
         viewModel.errorLiveData.observe(viewLifecycleOwner) { error ->
             Snackbar.make(binding.editPass , "Ошибка регистрации - ${error}", Snackbar.LENGTH_LONG)
                 .setBackgroundTint(Color.parseColor("#FFD85959")).show()
+        }
+    }
+
+    fun disableAllInLoadingState(isLoading: Boolean,){
+        val isActive = !isLoading
+        with(binding){
+            allEditTextLayout.isVisible = isActive
+            progressBar.isVisible = isLoading
+
+            skipButton.isEnabled = isActive
+            registerButton.isEnabled = isActive
+            signInButton.isEnabled = isActive
         }
     }
 }

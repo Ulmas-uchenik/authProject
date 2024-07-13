@@ -33,7 +33,7 @@ class AppointmentSecondStepFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAppointmentSecondStepBinding.inflate(inflater)
+        _binding = FragmentAppointmentSecondStepBinding.inflate(inflater, container, false)
         return binding.root
     }
 

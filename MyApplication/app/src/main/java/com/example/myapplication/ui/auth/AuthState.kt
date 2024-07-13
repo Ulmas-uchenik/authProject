@@ -5,6 +5,6 @@ sealed class AuthState {
     data object SignIn : AuthState()
     data object Register : AuthState()
     data object Success : AuthState()
-    data object Loading : AuthState()
+    data class Loading(val isFirstStart: Boolean) : AuthState()
 
 }

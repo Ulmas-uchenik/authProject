@@ -16,7 +16,7 @@ import kotlin.random.Random
 class AuthViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow<AuthState>(AuthState.Loading)
+    private val _state = MutableStateFlow<AuthState>(AuthState.Loading(true))
     val state = _state.asStateFlow()
 
     private val _errorLiveData = MutableLiveData<String>()
@@ -68,7 +68,7 @@ class AuthViewModel @Inject constructor(
     fun authByUid() {
         viewModelScope.launch {
             Log.d(AUTH_TAG, "Авторизацию по UID")
-            _state.value = AuthState.Loading
+            _state.value = AuthState.Loading(false)
             try {
                 val isAuthorise = repository.signInByUid()
                 if (isAuthorise.sid != null) {
@@ -99,7 +99,7 @@ class AuthViewModel @Inject constructor(
     fun registerSkip() {
         viewModelScope.launch {
             Log.d(AUTH_TAG, "Авторизации skip")
-            _state.value = AuthState.Loading
+            _state.value = AuthState.Loading(false)
             try {
                 val uid = Random.nextInt(100000000, 1000000000).toString()
                 val isAuthorise = repository.register(uid)

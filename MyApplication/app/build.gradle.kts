@@ -55,9 +55,9 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     //MVVM
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.2")
-    implementation("androidx.fragment:fragment-ktx:1.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.3")
+    implementation("androidx.fragment:fragment-ktx:1.8.1")
 
     //OKHttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
