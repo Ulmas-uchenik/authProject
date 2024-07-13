@@ -33,7 +33,7 @@ class DoctorServicesListAdapter(
             if(position == values.size - 1)
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
              else
-                bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
+                bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.little_black))
             Glide.with(imageView.context)
                 .load("https://cdn-icons-png.flaticon.com/512/5604/5604732.png")
                 .into(imageView)

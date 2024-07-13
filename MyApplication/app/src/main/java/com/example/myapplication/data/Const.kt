@@ -22,3 +22,13 @@ object Const {
     const val HOW_FRAGMENT_OPEN = "HOW_FRAGMENT_OPEN"
     const val NOTIFICATION_FRAGMENT = "Notification Fragment"
 }
+
+fun main(){
+    println(md5Hash("NewPassword"))
+}
+
+private fun md5Hash(str: String): String {
+    val md = MessageDigest.getInstance("MD5")
+    val bigInt = BigInteger(1, md.digest("${str}qwerty".toByteArray(Charsets.UTF_8)))
+    return String.format("%032x", bigInt)
+}

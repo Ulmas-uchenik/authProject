@@ -110,7 +110,7 @@ class AuthViewModel @Inject constructor(
                     _state.value = AuthState.Success
                 } else {
                     Log.d(AUTH_TAG, "state auth skip - error")
-                    _state.value = AuthState.Error("выполнить вход с помощью skip")
+                    _errorLiveData.value = "Ошибка, не получилось пропустить"
                 }
             } catch (t: Throwable) {
                 Log.d(AUTH_TAG, "Ошибка авторизации skip - ${t.message}")

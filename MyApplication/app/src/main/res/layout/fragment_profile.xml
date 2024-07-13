@@ -49,6 +49,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/fio_edit_text"
                 android:layout_width="match_parent"
+                android:clickable="false"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 tools:text="Барашних Х Х " />
@@ -75,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_upper_little"
-            android:allowClickWhenDisabled="false"
+            android:enabled="false"
             android:hint="@string/telephone_number">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -93,9 +94,24 @@
             android:text="Подтвердить номер телефона"
             android:textAllCaps="false"
             android:textColor="@color/blue_text_button"
-            android:layout_gravity="end
-"
+            android:layout_gravity="end"
             />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_text_passpord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:enabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            android:hint="Пароль"
+            app:layout_constraintTop_toTopOf="parent">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

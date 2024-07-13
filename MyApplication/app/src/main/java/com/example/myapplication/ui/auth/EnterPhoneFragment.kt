@@ -64,10 +64,12 @@ class EnterPhoneFragment : Fragment() {
                                 binding.editPass.context, MainActivity::class.java
                             )
                         )
-                        AuthActivity().finish()
+                        activity?.finish()
                     }
 
-                    is AuthState.Loading -> Snackbar.make(binding.editPass, "Загрузка", Snackbar.LENGTH_SHORT).show()
+                    is AuthState.Loading -> {
+
+                    }
 
                     is AuthState.Error -> if(viewModel.haveUid()) viewModel.authByUid()
 

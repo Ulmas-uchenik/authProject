@@ -69,10 +69,10 @@ class AuthRepository @Inject constructor(
         editor.apply()
     }
 
-    fun tempForAdminPutUid(){
+    fun tempForAdminPutUid(uid: String){
         val prefs = context.getSharedPreferences(Const.PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = prefs.edit()
-        editor.putString(Const.SHARED_PREFS_UID, "463979645")
+        editor.putString(Const.SHARED_PREFS_UID, uid)
         editor.apply()
     }
 

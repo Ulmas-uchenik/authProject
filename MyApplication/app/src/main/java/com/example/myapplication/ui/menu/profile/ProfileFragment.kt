@@ -27,6 +27,7 @@ import com.example.myapplication.databinding.FragmentProfileBinding
 import com.example.myapplication.ui.auth.AuthActivity
 import com.example.myapplication.ui.auth.AuthViewModel
 import com.example.myapplication.ui.auth.AuthViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -74,9 +75,16 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_navigation_menu)
         }
 
+        binding.saveButton.setOnClickListener {
+            Snackbar.make(it, "TestMessage", Snackbar.LENGTH_LONG)
+                .setBackgroundTint(Color.parseColor("#FFD85959"))
+                .show()
+
+        }
+
         binding.exitButton.setOnClickListener {
             authViewModel.logout()
-            MainActivity().finish()
+            activity?.finish()
             startActivity(Intent(binding.root.context, AuthActivity::class.java))
         }
 
@@ -92,7 +100,7 @@ class ProfileFragment : Fragment() {
 
     }
 
-    fun setAllText() {
+    private fun setAllText() {
         val selfInfo = viewModel.selfInfo.value
         Log.d("yes", "self info -> ${selfInfo.toString()}")
         if (selfInfo != null) {
@@ -100,10 +108,8 @@ class ProfileFragment : Fragment() {
             binding.editTextBirthday.setText("${selfInfo.birthDay}")
             binding.fioTextView.text = selfInfo.login
 
-            val showTelephoneNumber = if (selfInfo.phone.isNotBlank()) View.VISIBLE else View.GONE
             binding.editTextTelephoneNumber.setText(selfInfo.phone)
-            binding.layoutEditTextTelephoneNumber.visibility = showTelephoneNumber
-            binding.conformedTelephoneButton.visibility = if(selfInfo.phone.isNotBlank() && selfInfo.phoneConformed == "0") View.VISIBLE else View.GONE
+            binding.conformedTelephoneButton.visibility = if(selfInfo.phoneConformed == "0") View.VISIBLE else View.GONE
 
         }
     }

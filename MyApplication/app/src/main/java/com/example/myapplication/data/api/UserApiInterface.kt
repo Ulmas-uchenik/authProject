@@ -20,4 +20,11 @@ interface UserApiInterface {
         @Query("Key") key : String,
     ): NotificationsList
 
+//    @GET(value="?Func=UpdatePassword")
+//    suspend fun updatePassword(
+//        @Query("Password") password : String,
+//        @Query("Key") key : String,
+//    ) :
+
+
 }
