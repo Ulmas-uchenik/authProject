@@ -20,7 +20,7 @@ class CategoriesListAdapter(
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesListViewHolder {
-        val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoriesListViewHolder(binding)
     }
 
