@@ -39,9 +39,9 @@ class AppointmentSecondStepFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.  getServices(viewModel.isAdultBranch.value, viewModel.chosenCategory.value[0])
+        viewModel.getServices(viewModel.isAdultBranch.value, viewModel.chosenCategory.value[0])
         binding.doctor.text = viewModel.chosenCategory.value[1]
-        val adapter = DoctorServicesListAdapter()
+        val adapter = DoctorServicesListAdapter { onServicesClick() }
         binding.recyclerView.adapter = adapter
 
         binding.backButtonToolbar.setOnClickListener {
@@ -71,6 +71,10 @@ class AppointmentSecondStepFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun onServicesClick(){
+        findNavController().navigate(R.id.action_appointmentSecondStepFragment_to_appointmentStepThirdFragment)
     }
 
 }

@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             userViewModel.getNotification()
             while(true){
-                delay(30000)
+                delay(10000)
                 userViewModel.getNotification()
             }
         }

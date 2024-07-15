@@ -42,7 +42,7 @@ class AppointmentFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = CategoriesListAdapter { doctor, name -> onDoctorClick(doctor, name)}
+        val adapter = CategoriesListAdapter { categories, name -> onCategoriesClick(categories, name)}
         binding.recyclerView.adapter = adapter
         tabLayout = binding.tabLayout
         viewPager2 = binding.viewPager2
@@ -114,8 +114,9 @@ class AppointmentFragment : Fragment() {
         }
     }
 
-    private fun onDoctorClick(category: String, name: String){
+    private fun onCategoriesClick(category: String, name: String){
         viewModel.chooseCategory(category, name)
+        Log.d("yes", "нажал на category (appo) - > category $category, name -> $name")
         findNavController().navigate(R.id.action_navigation_appointment_to_appointmentSecondStepFragment)
     }
 

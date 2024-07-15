@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ItemServicesBinding
 
-class ServicesListAdapter : RecyclerView.Adapter<ServicesListViewHolder>() {
+class ServicesListAdapter(
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<ServicesListViewHolder>() {
     private var values = emptyList<ServicesForRecyclerView>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -30,6 +32,12 @@ class ServicesListAdapter : RecyclerView.Adapter<ServicesListViewHolder>() {
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.empty))
             else
                 bottomLine.setBackgroundColor(ContextCompat.getColor(nextButton.context, R.color.little_black))
+        }
+        holder.binding.root.setOnClickListener {
+            onClick(item.title)
+        }
+        holder.binding.nextButton.setOnClickListener {
+            onClick(item.title)
         }
     }
 

@@ -8,7 +8,7 @@ import com.example.myapplication.data.models.Services
 import com.example.myapplication.databinding.ItemDoctorServicesBinding
 
 class DoctorServicesListAdapter(
-//    private val onClick: (String) -> Unit
+    private val onClick: () -> Unit
 ): RecyclerView.Adapter<DoctorServicesListViewHolder>() {
     private var values = emptyList<Services>()
 
@@ -35,9 +35,12 @@ class DoctorServicesListAdapter(
 //                .load("https://cdn-icons-png.flaticon.com/512/5604/5604732.png")
 //                .into(imageView)
         }
-//        holder.binding.nextButton.setOnClickListener {
-//            onClick(holder.binding.doctorTextView.text.toString())
-//        }
+        holder.binding.nextButton.setOnClickListener {
+            onClick()
+        }
+        holder.binding.root.setOnClickListener {
+            onClick()
+        }
     }
 
     override fun getItemCount(): Int = values.size

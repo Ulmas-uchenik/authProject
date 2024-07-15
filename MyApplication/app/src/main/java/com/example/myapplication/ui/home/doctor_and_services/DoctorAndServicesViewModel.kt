@@ -9,6 +9,8 @@ import com.example.myapplication.data.models.Doctor
 import com.example.myapplication.data.models.DoctorInfo
 import com.example.myapplication.ui.home.doctor.DoctorState
 import com.example.myapplication.ui.home.services.ServiceState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

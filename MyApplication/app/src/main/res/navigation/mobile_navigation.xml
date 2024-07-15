@@ -63,6 +63,9 @@
             app:destination="@id/navigation_appointment"
             app:popUpTo="@id/navigation_appointment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_appointmentSecondStepFragment_to_appointmentStepThirdFragment"
+            app:destination="@id/appointmentStepThirdFragment" />
     </fragment>
     <fragment
         android:id="@+id/doctorAndServicesFragment"
@@ -91,6 +94,11 @@
             app:destination="@id/doctorAndServicesFragment"
             app:popUpTo="@id/doctorAndServicesFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_servicesFragment_to_appointmentSecondStepFragment2"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/appointmentSecondStepFragment"
+            app:destination="@id/appointmentSecondStepFragment" />
     </fragment>
     <fragment
         android:id="@+id/doctorCardFragment"
@@ -124,5 +132,16 @@
             app:popUpToInclusive="true"
             app:popUpTo="@id/profileFragment"
             app:destination="@id/navigation_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/appointmentStepThirdFragment"
+        android:name="com.example.myapplication.ui.appointment.step3.AppointmentStepThirdFragment"
+        android:label="fragment_appointment_step_third"
+        tools:layout="@layout/fragment_appointment_step_third" >
+        <action
+            android:id="@+id/action_appointmentStepThirdFragment_to_appointmentSecondStepFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/appointmentStepThirdFragment"
+            app:destination="@id/appointmentSecondStepFragment" />
     </fragment>
 </navigation>

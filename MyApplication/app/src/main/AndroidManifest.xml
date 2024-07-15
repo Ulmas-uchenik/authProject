@@ -20,7 +20,6 @@
         <activity
             android:name=".PlugActivity"
             android:exported="true"
-            android:label="@string/title_activity_plug"
             android:theme="@style/Theme.Infodent" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

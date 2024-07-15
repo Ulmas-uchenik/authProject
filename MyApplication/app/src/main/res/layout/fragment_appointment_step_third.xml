@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".ui.appointment.step3.AppointmentStepThirdFragment">
 
@@ -17,23 +17,39 @@
 
         <TextView
             style="@style/tab_layout_title_text"
-            android:text="@string/step_third"/>
+            android:text="@string/step_third" />
 
         <Button
             android:id="@+id/button_on_all_doctors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
             android:layout_margin="@dimen/margin_upper_little"
+            android:background="@drawable/shape_orange_button"
             android:paddingHorizontal="@dimen/margin_upper_medium"
+            android:text="@string/by_doctor"
             android:textAllCaps="false"
             android:textColor="@color/orange"
-            android:textStyle="bold"
-            android:background="@drawable/shape_orange_button"
-            android:layout_gravity="end"
             android:textSize="@dimen/text_little"
-            android:text="@string/by_doctor"
-            />
+            android:textStyle="bold"
+            android:visibility="invisible" />
     </Toolbar>
+
     <View style="@style/tab_layout_bottom_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_gray">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="В скором времени тут будут заявки..."
+            android:textSize="@dimen/text_upper_little"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
 </LinearLayout>
