@@ -37,9 +37,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.appointmentCard.setOnClickListener {
-            Snackbar.make(it, "сделать переход на прием врача", Snackbar.LENGTH_LONG)
-                .show()
-
+            findNavController().navigate(R.id.navigation_appointment)
         }
 
         binding.logbookCard.setOnClickListener {
@@ -49,7 +47,6 @@ class HomeFragment : Fragment() {
 
         binding.doctorsAndServicesCard.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_doctorAndServicesFragment)
-
         }
 
         binding.profileRoom.setOnClickListener {
