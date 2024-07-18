@@ -40,9 +40,14 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.navigation_appointment)
         }
 
+        binding.chatCard.setOnClickListener{
+            Snackbar.make(it, "сделать переход на чат с оператором", Snackbar.LENGTH_LONG)
+                .show()
+        }
+
         binding.logbookCard.setOnClickListener {
             Snackbar.make(it, "сделать переход на журнал записей", Snackbar.LENGTH_LONG)
-            .show()
+                .show()
         }
 
         binding.doctorsAndServicesCard.setOnClickListener {

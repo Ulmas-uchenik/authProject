@@ -5,8 +5,7 @@
     <dimen name="card_default_padding">8dp</dimen>
     <dimen name="margin_between_card">8dp</dimen>
     <dimen name="image_height">90dp</dimen>
-    <dimen name="card_height">150dp</dimen>
-
+    <dimen name="card_height">130dp</dimen>
     <dimen name="button_corner">10dp</dimen>
 
     <dimen name="margin_little">4dp</dimen>
@@ -15,7 +14,6 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_upper_medium">24dp</dimen>
     <dimen name="margin_huge">32dp</dimen>
-
     <dimen name="text_little">16sp</dimen>
     <dimen name="text_upper_little">20sp</dimen>
     <dimen name="text_medium">24sp</dimen>

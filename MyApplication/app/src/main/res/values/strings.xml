@@ -52,4 +52,5 @@
     <string name="register">Зарегистрироваться</string>
     <string name="title_activity_plug">PlugActivity</string>
     <string name="operator_call">Вам позвонит оператор чтобы подтвердить номер телефона</string>
+    <string name="online_chat">Чат с оператором</string>
 </resources>
