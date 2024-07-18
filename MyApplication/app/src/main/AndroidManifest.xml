@@ -20,6 +20,7 @@
         <activity
             android:name=".PlugActivity"
             android:exported="true"
+            android:screenOrientation="locked"
             android:theme="@style/Theme.Infodent" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,10 +31,11 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="locked"
+            />
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="locked"
             android:exported="false"/>
     </application>
 

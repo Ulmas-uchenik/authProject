@@ -37,18 +37,6 @@ class WelcomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.continueButton.setOnClickListener {
-            val name = binding.nameEditText.text.toString()
-            val lastname = binding.lastnameEditText.text.toString()
-            if(viewModel.checkUserName(name)) {
-                viewModel.setUserFio(name, lastname)
-                findNavController().navigate(R.id.action_welcomeFragment_to_enterPhoneFragment)
-            } else {
-                Snackbar.make(it, "Чтобы продолжить введие хотябы 3 буквы", Snackbar.LENGTH_LONG)
-                    .setBackgroundTint(Color.parseColor("#FFD85959"))
-                    .show()
-            }
-        }
     }
 
     override fun onDestroy() {

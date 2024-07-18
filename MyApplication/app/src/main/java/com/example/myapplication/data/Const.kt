@@ -24,7 +24,7 @@ object Const {
 }
 
 fun main(){
-    println(md5Hash("NewPassword"))
+    println(md5Hash("fffhello"))
 }
 
 private fun md5Hash(str: String): String {

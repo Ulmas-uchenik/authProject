@@ -5,5 +5,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 data class IsAuthorise (
     @SerializedName("Status") val status: String,
-    @SerializedName("Sid") val sid: String?
+    @SerializedName("Sid") val sid: String,
+    @SerializedName("Uid") val uid: String,
 )
